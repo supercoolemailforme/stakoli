@@ -4,10 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { StakoliTableComponent } from './stakoli-table/stakoli-table.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StakoliTableComponent
   ],
   imports: [
     BrowserModule,
