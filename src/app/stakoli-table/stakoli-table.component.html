@@ -1,5 +1,5 @@
 <button (click)="selectedWeek !== 0 ? selectedWeek = selectedWeek - 1 : ''">&#171;</button>
-<select [selectedIndex]="selectedWeek" (change)="setSelecteWeek($event)">
+<select [selectedIndex]="selectedWeek" (change)="setSelectedWeek($event)">
     <option *ngFor="let week of weeks">
         {{week.week + 1 + ' (' + week.begin.toLocaleDateString('de', {day: 'numeric', month: 'numeric'}) + ' - ' + week.end.toLocaleDateString('de', {day: 'numeric', month: 'numeric'}) + ')'}}
     </option>

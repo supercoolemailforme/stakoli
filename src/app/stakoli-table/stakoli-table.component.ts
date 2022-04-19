@@ -37,6 +37,7 @@ export class StakoliTableComponent implements OnInit {
     this.days = [];
     this.weeks = [];
     this.todayIndex = -1;
+    this.selectedWeek = 0;
     
     this.leapyear = this.year % 4 === 0 && (this.year % 100 !== 0 || this.year % 1000 === 0);
 
@@ -45,7 +46,7 @@ export class StakoliTableComponent implements OnInit {
         if (day === 31 && ((month < 6 && month % 2 === 1) || (month > 7 && month % 2 === 0))) {
           break;
         }
-        if (month === 2 && (day === 29 && !this.leapyear || day === 30)) {
+        if (month === 1 && ((day === 29 && !this.leapyear) || day === 30)) {
           break;
         }
 
@@ -79,7 +80,7 @@ export class StakoliTableComponent implements OnInit {
     }
   }
 
-  getWeek(day: Date, dayIndex: number):number {
+  getWeek(day: Date, dayIndex: number): number {
     let week = Math.floor((dayIndex - ((day.getDay() + 6) % 7)) / 7);
     if (week < 0) {
       week = 52;
@@ -87,7 +88,7 @@ export class StakoliTableComponent implements OnInit {
     return week;
   }
 
-  setSelecteWeek(event: Event) {
+  setSelectedWeek(event: Event) {
     this.selectedWeek = (event.target as HTMLSelectElement).selectedIndex;
   }
 

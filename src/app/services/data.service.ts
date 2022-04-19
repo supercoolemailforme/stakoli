@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Observable, Subject, Subscriber } from 'rxjs';
+import readXlsxFile, { readSheetNames } from 'read-excel-file';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +20,40 @@ export class DataService {
                         anwesenheiten: []}
                     ]};
 
-  constructor() { }
+
+  // utility-variables
+  loadingActive = new Subject<boolean>();
+
+  constructor() { 
+    this.loadingActive.next(true);
+  }
+
+  openFileTest(event: Event) {
+    let files = (event.target as HTMLInputElement).files;
+    
+    if (files && files[0]) {
+      this.loadingActive.next(true);
+
+      let file: File = files[0];
+
+      readSheetNames(file).then((sheetNames: string[]) => {
+        let i = 0;
+
+        if (sheetNames.length === 0) {
+          this.loadingActive.next(false);
+        }
+
+        for (let name of sheetNames) {
+          readXlsxFile(file, {sheet: name}).then(rows => {
+            console.log(rows);
+            ++i;
+
+            if (i === sheetNames.length) {
+              this.loadingActive.next(false);
+            }
+          });
+        }
+      });
+    }
+  }
 }
