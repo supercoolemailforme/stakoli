@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscriber, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { DataService } from '../services/data.service';
 
 @Component({

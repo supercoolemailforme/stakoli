@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, Subscriber } from 'rxjs';
+import { Subject } from 'rxjs';
 import readXlsxFile, { readSheetNames } from 'read-excel-file';
 
 @Injectable({
@@ -23,9 +23,14 @@ export class DataService {
 
   // utility-variables
   loadingActive = new Subject<boolean>();
+  modalMode = new Subject<ModalModes>();
+
+
+
 
   constructor() { 
     this.loadingActive.next(true);
+    this.modalMode.next(ModalModes.NONE);
   }
 
   openFileTest(event: Event) {
@@ -45,11 +50,13 @@ export class DataService {
 
         for (let name of sheetNames) {
           readXlsxFile(file, {sheet: name}).then(rows => {
+            console.log(name);
             console.log(rows);
             ++i;
 
             if (i === sheetNames.length) {
               this.loadingActive.next(false);
+              this.modalMode.next(ModalModes.OLD_EXCEL);
             }
           });
         }
@@ -57,3 +64,5 @@ export class DataService {
     }
   }
 }
+
+export enum ModalModes{ NONE, OLD_EXCEL, PERSON }; 

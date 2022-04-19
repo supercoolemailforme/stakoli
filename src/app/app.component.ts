@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataService } from './services/data.service';
+import { DataService, ModalModes } from './services/data.service';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +10,15 @@ import { DataService } from './services/data.service';
 export class AppComponent {
 
   dataService: DataService;
+  modalModes = ModalModes;
+
+  activeModalMode: ModalModes = ModalModes.NONE;
 
   constructor(data: DataService) {
     this.dataService = data;
+
+    data.modalMode.subscribe(mm => {
+      this.activeModalMode = mm;
+    });
   }
 }
