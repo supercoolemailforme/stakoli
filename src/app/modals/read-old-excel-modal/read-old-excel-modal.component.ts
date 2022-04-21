@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-read-old-excel-modal',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReadOldExcelModalComponent implements OnInit {
 
-  constructor() { }
+  dataService: DataService;
+
+  constructor(data: DataService) {
+    this.dataService = data;
+  }
 
   ngOnInit(): void {
   }

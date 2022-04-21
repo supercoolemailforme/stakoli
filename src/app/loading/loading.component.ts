@@ -10,14 +10,12 @@ import { DataService } from '../services/data.service';
 export class LoadingComponent implements OnInit {
 
   active: boolean = false;
-
   _active: Subscription;
 
 
   constructor(data: DataService) {
     this._active = data.loadingActive.subscribe(value => {
       this.active = value;
-      console.log("abc");
     });
   }
 

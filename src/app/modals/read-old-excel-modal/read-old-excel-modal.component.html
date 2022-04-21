@@ -1,3 +1,7 @@
 <div class="modal">
-    Test Text
+    <div *ngFor="let sheet of dataService.foundSheetsList">
+        <span>{{sheet.name}}: </span>
+        <span style="color: red" *ngIf="sheet.error !== undefined">{{sheet.error}}</span>
+        <span *ngIf="sheet.error === undefined">{{sheet.obj.department.persons.length}} Personen gefunden</span>
+    </div>
 </div>
