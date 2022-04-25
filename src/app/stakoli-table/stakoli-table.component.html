@@ -1,14 +1,14 @@
-<button (click)="selectedWeek !== 0 ? selectedWeek = selectedWeek - 1 : ''">&#171;</button>
+<button [disabled]="selectedWeek === 0" (click)="selectedWeek !== 0 ? selectedWeek = selectedWeek - 1 : ''">&#171;</button>
 <select [selectedIndex]="selectedWeek" (change)="setSelectedWeek($event)">
     <option *ngFor="let week of weeks">
         {{week.week + 1 + ' (' + week.begin.toLocaleDateString('de', {day: 'numeric', month: 'numeric'}) + ' - ' + week.end.toLocaleDateString('de', {day: 'numeric', month: 'numeric'}) + ')'}}
     </option>
 </select>
-<button (click)="selectedWeek !== weeks.length - 1 ? selectedWeek = selectedWeek + 1 : ''">&#187;</button>
-<br>
-<button (click)="year = year - 1; calcYear()">prev</button>{{year}}<button (click)="year = year + 1; calcYear()">next</button>
+<button [disabled]="selectedWeek === weeks.length - 1" (click)="selectedWeek !== weeks.length - 1 ? selectedWeek = selectedWeek + 1 : ''">&#187;</button>
 
-<table>
+<!--button (click)="year = year - 1; calcYear()">prev</button-->{{year}}<!--button (click)="year = year + 1; calcYear()">next</button-->
+
+<table *ngIf="dataService.data.length !== 0">
     <thead>
         <td></td>
         <td></td>
@@ -29,12 +29,27 @@
             </td>
         </ng-container>
     </thead>
-    <tr *ngFor="let person of dataService.data['Dienstbetrieb']">
+    <tr *ngFor="let person of dataService.data[0].department.persons">
         <td>
-            {{person.funktion}}
+            {{person.position}}
         </td>
         <td>
-            {{person.nachname + " " + person.vorname + ", " + person.dienstgrad}}
+            {{person.lastName + " " + person.firstName + (person.rank ? ", " + person.rank : '')}}
         </td>
+        <ng-container *ngIf="weeks[selectedWeek].begin.getDate() === 1 && weeks[selectedWeek].begin.getMonth() === 0">
+            <td class="dayTableDiv" *ngFor="let useless of getArray(6 - (weeks[0].end - weeks[0].begin) / (60 * 60 * 24 * 1000))">
+                /
+            </td>
+        </ng-container>
+        <ng-container *ngFor="let day of days">
+            <td *ngIf="day >= weeks[selectedWeek].begin && day <= weeks[selectedWeek].end">
+                {{person.attendances[day.getDate().toString() + "." + (day.getMonth() + 1).toString()]}}
+            </td>
+        </ng-container>
+        <ng-container *ngIf="weeks[selectedWeek].end.getDate() === 31 && weeks[selectedWeek].end.getMonth() === 11">
+            <td class="dayTableDiv" *ngFor="let useless of getArray(6 - (weeks[selectedWeek].end - weeks[selectedWeek].begin) / (60 * 60 * 24 * 1000))">
+                /
+            </td>
+        </ng-container>
     </tr>
 </table>

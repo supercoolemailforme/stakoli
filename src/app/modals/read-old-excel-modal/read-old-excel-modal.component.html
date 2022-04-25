@@ -1,7 +1,16 @@
 <div class="modal">
-    <div *ngFor="let sheet of dataService.foundSheetsList">
-        <span>{{sheet.name}}: </span>
-        <span style="color: red" *ngIf="sheet.error !== undefined">{{sheet.error}}</span>
-        <span *ngIf="sheet.error === undefined">{{sheet.obj.department.persons.length}} Personen gefunden</span>
+    <div *ngFor="let sheet of dataService.foundSheetsList; let i = index">
+        <b>{{sheet.name}} </b>
+        <input type="checkbox" [(ngModel)]="sheetCheck[i]" [disabled]="sheet.error !== undefined" />
+        <div>
+            <div style="color: red" *ngIf="sheet.error !== undefined">{{sheet.error}}</div>
+            <ng-container *ngIf="sheet.error === undefined">
+                <div>{{sheet.obj.department.persons.length}} Personen eingelesen</div>
+                <div>{{sheet.obj.daysCount}} Tage eingelesen</div>
+                <div>{{sheet.obj.year}}</div>
+            </ng-container>
+        </div>
     </div>
+    <input type="text" pattern="%d" [(ngModel)]="currentYear" />
+    <button (click)="applyData()">Änderungen Anwenden</button>
 </div>

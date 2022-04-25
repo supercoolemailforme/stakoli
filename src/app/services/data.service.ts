@@ -9,6 +9,7 @@ import { Integer } from 'read-excel-file/types';
 })
 export class DataService {
 
+  /*
   data: any = {'Dienstbetrieb': [{
                       vorname: 'Max', nachname: 'Mustermann', dienstgrad: 'Vzlt', funktion: 'OvT',
                       anwesenheiten: [{'1.1': 'anw', '1.2': 'anw', '1.3': 'k'}]}
@@ -20,7 +21,8 @@ export class DataService {
                       {
                         vorname: 'Alexander', nachname: 'Neuböck-Trpisovsky', dienstgrad: 'Rekr', funktion: 'Cyber-Gwd',
                         anwesenheiten: []}
-                    ]};
+                    ]};*/
+  data: {name: string, department: Department}[] = [];
 
 
   // utility-variables
@@ -29,6 +31,7 @@ export class DataService {
 
   // readData
   foundSheetsList: any[] = [];
+  activeFile: File | null = null;
 
 
 
@@ -36,41 +39,57 @@ export class DataService {
   constructor() { 
     this.loadingActive.next(true);
     this.modalMode.next(ModalModes.NONE);
+
+    let temp = [
+        "{\"name\":\"Dienstbetrieb\",\"department\":{\"name\":\"Dienstbetrieb\",\"persons\":[{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Brugger\",\"rank\":\"\",\"position\":\"funk1\"},{\"attendances\":{\"3.1\":\"K\",\"4.1\":\"K\",\"5.1\":\"K\",\"6.1\":\"K\",\"7.1\":\"K\",\"8.1\":\"K\",\"2.1\":\"K\",\"2.2\":\"K\",\"2.3\":\"K\"},\"firstName\":\"\",\"lastName\":\"Hutka\",\"rank\":\"\",\"position\":\"funk2\"},{\"attendances\":{\"5.1\":\"K\",\"6.1\":\"Anw\",\"7.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Rumpler\",\"rank\":\"\",\"position\":\"funk3\"},{\"attendances\":{\"5.1\":\"Anw\",\"6.1\":\"Anw\",\"7.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Blasl\",\"rank\":\"\",\"position\":\"funk3\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Mayer\",\"rank\":\"\",\"position\":\"funk4\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Medwenitsch\",\"rank\":\"\",\"position\":\"funk5\"},{\"attendances\":{\"4.1\":\"DZ\",\"5.1\":\"DZ\",\"6.1\":\"AE\",\"7.1\":\"Anw\",\"8.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Seidl\",\"rank\":\"\",\"position\":\"funk5\"},{\"attendances\":{\"3.1\":\"DZ\",\"4.1\":\"DZ\",\"5.1\":\"DZ\",\"6.1\":\"AE\",\"7.1\":\"Anw\",\"8.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Klenner\",\"rank\":\"\",\"position\":\"funk5\"}]}}",
+        "{\"name\":\"Dienstbetrieb_2\",\"department\":{\"name\":\"Dienstbetrieb_2\",\"persons\":[{\"attendances\":{\"3.1\":\"K\",\"4.1\":\"K\",\"5.1\":\"K\",\"6.1\":\"K\",\"7.1\":\"K\",\"8.1\":\"K\",\"2.1\":\"K\",\"2.2\":\"K\",\"2.3\":\"K\"},\"firstName\":\"\",\"lastName\":\"Brugger2\",\"rank\":\"\",\"position\":\"funk1\"},{\"attendances\":{\"5.1\":\"K\",\"6.1\":\"Anw\",\"7.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Hutka2\",\"rank\":\"\",\"position\":\"funk2\"},{\"attendances\":{\"5.1\":\"Anw\",\"6.1\":\"Anw\",\"7.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Rumpler2\",\"rank\":\"\",\"position\":\"funk3\"},{\"attendances\":{\"4.1\":\"DZ\",\"5.1\":\"DZ\",\"6.1\":\"AE\",\"7.1\":\"Anw\",\"8.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Medwenitsch2\",\"rank\":\"\",\"position\":\"funk5\"},{\"attendances\":{\"3.1\":\"DZ\",\"4.1\":\"DZ\",\"5.1\":\"DZ\",\"6.1\":\"AE\",\"7.1\":\"Anw\",\"8.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Seidl2\",\"rank\":\"\",\"position\":\"funk5\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Klenner2\",\"rank\":\"\",\"position\":\"funk5\"}]}}",
+        "{\"name\":\"S6\",\"department\":{\"name\":\"S6\",\"persons\":[{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Tischler\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Pointinger\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Stevic\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Vural\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Neuböck\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Mayerhofer\",\"rank\":\"\",\"position\":\"\"}]}}"
+    ];
+    for (let i of temp) {
+      this.data.push(JSON.parse(i));
+    }
+    console.log(this.data);
   }
 
   openFileTest(event: Event) {
-    let files = (event.target as HTMLInputElement).files;
+    let files: FileList | null = (event.target as HTMLInputElement).files;
     
     if (files && files[0]) {
-      this.loadingActive.next(true);
-
-      let file: File = files[0];
-
-      readSheetNames(file).then((sheetNames: string[]) => {
-        let i = 0;
-
-        if (sheetNames.length === 0) {
-          this.loadingActive.next(false);
-        }
-
-        for (let name of sheetNames) {
-          readXlsxFile(file, {sheet: name}).then(rows => {
-            try {
-              this.foundSheetsList.push({name: name, obj: this.interpretSheetFormat(name, rows)});
-            }
-            catch(e: any) {
-              this.foundSheetsList.push({name: name, error: e});
-            }
-            ++i;
-
-            if (i === sheetNames.length) {
-              this.loadingActive.next(false);
-              this.modalMode.next(ModalModes.OLD_EXCEL);
-            }
-          });
-        }
-      });
+      this.activeFile = files[0];
+      this._readExcelFile(this.activeFile);
     }
+
+    (event.target as HTMLInputElement).value = "";
+  }
+
+  _readExcelFile(file: File) {
+    this.foundSheetsList = [];
+    this.loadingActive.next(true);
+
+    readSheetNames(file).then((sheetNames: string[]) => {
+      let i = 0;
+
+      if (sheetNames.length === 0) {
+        this.loadingActive.next(false);
+      }
+
+      for (let name of sheetNames) {
+        readXlsxFile(file, {sheet: name}).then(rows => {
+          try {
+            this.foundSheetsList.push({name: name, obj: this.interpretSheetFormat(name, rows)});
+          }
+          catch(e: any) {
+            this.foundSheetsList.push({name: name, error: e});
+          }
+          ++i;
+
+          if (i === sheetNames.length) {
+            this.loadingActive.next(false);
+            this.modalMode.next(ModalModes.OLD_EXCEL);
+          }
+        });
+      }
+    });
   }
 
   interpretSheetFormat(sheetName: string, sheetContent: any): {department: Department, year: number, attendanceTypes: string[], daysCount: number} {

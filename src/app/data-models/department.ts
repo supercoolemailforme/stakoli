@@ -17,7 +17,7 @@ export class Person {
     lastName: string;
     rank: string;
     position: string;
-    attendances: {} = {};
+    attendances: any = {};
 
     constructor(lastName: string, position: string = "", rank: string = "", firstName: string = "", attendances: any = {}) {
         this.firstName = firstName;
