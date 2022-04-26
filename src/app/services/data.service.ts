@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import readXlsxFile, { readSheetNames } from 'read-excel-file';
 import { Department, Person } from '../data-models/department';
 import { Integer } from 'read-excel-file/types';
+import { EventHandlerVars } from '@angular/compiler/src/compiler_util/expression_converter';
+import { EventManager } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +25,10 @@ export class DataService {
                         anwesenheiten: []}
                     ]};*/
   data: {name: string, department: Department}[] = [];
+  attendanceTypes: string[] = [];
+  year: number = 2022;
+
+  OnNewDataApplied = new EventEmitter<string>();
 
 
   // utility-variables
@@ -262,6 +268,16 @@ export class DataService {
     }
 
     return row[index];
+  }
+
+  mergeArrays<Type>(arr1: Type[], arr2: Type[]): Type[] {
+    for (let value of arr2) {
+      if (arr1.indexOf(value) === -1) {
+        arr1.push(value);
+      }
+    }
+
+    return arr1;
   }
 }
 

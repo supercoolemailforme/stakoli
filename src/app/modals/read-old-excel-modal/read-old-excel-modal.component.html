@@ -7,10 +7,13 @@
             <ng-container *ngIf="sheet.error === undefined">
                 <div>{{sheet.obj.department.persons.length}} Personen eingelesen</div>
                 <div>{{sheet.obj.daysCount}} Tage eingelesen</div>
-                <div>{{sheet.obj.year}}</div>
+                <div [style.color]="isNan(sheet.obj.year) ? 'orange' : 'inherit'">{{isNan(sheet.obj.year) ? 'Kein Jahr erkannt' : sheet.obj.year}}</div>
             </ng-container>
         </div>
     </div>
-    <input type="text" pattern="%d" [(ngModel)]="currentYear" />
+    <div>
+        <span *ngIf="yearMissmatch" style="color: rgb(189, 189, 23)">Jahre stimmen nicht überein</span>
+    </div>
+    <input type="number" pattern="%d" [(ngModel)]="selectedYear" (input)="onYearChanged($event)" min="1900" max="4000" />
     <button (click)="applyData()">Änderungen Anwenden</button>
 </div>
