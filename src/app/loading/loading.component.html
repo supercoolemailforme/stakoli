@@ -1,3 +1,35 @@
-<div class="overallDiv" *ngIf="active">
-    <span>Loading...</span>
+<div class="overallDiv" *ngIf="active" [class.fadeOut]="overallFadeOut">
+    <svg class="logo-background">
+        <g *ngFor="let useless1 of dataService.getArray(trianglesRowCtn); let rowIndex = index">
+            <g *ngFor="let useless2 of dataService.getArray(trianglesColumnCnt); let columnIndex = index">
+                <polygon *ngIf="columnIndex !== 0 || rowIndex % 2 === 0" [attr.points]="getPolygonPoints1(columnIndex, rowIndex)" [ngStyle]="{fill: getRandomColor(columnIndex, rowIndex), display: (getDisappearValue(columnIndex + 0.5, rowIndex + 0.5) ? 'none' : 'auto'), 'animation-delay': getTriangleAnimationDelay(columnIndex, rowIndex)}"></polygon>
+                <polygon *ngIf="columnIndex !== trianglesColumnCnt - 1 || rowIndex % 2 === 1" [attr.points]="getPolygonPoints2(columnIndex, rowIndex)" [ngStyle]="{fill: getRandomColor(columnIndex, rowIndex), display: (getDisappearValue(columnIndex + 0.5, rowIndex + 0.5) ? 'none' : 'auto'), 'animation-delay': getTriangleAnimationDelay(columnIndex, rowIndex)}"></polygon>
+            </g>
+        </g>
+    </svg>
+    <div>
+        <div class="logoDiv">
+            <svg viewBox="0 0 601 601" class="logo">
+                <circle
+                cx="300.5"
+                cy="300.49997"
+                r="300"
+                id="circle2"
+                style="fill:#e30619;fill-opacity:1;stroke:none" />
+                <path
+                style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:8.30000019;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+                d="M 40.692366,150.50001 560.3076,150.5 300.49998,600.5 Z"
+                id="rect839"
+                inkscape:connector-curvature="0"
+                sodipodi:nodetypes="cccc" />
+            </svg>
+        </div>
+        <div>
+            <span class="defaultText">Loading
+                <span>.</span>
+                <span>.</span>
+                <span>.</span>
+            </span>
+        </div>
+    </div>
 </div>

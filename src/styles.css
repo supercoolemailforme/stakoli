@@ -9,9 +9,34 @@ div.overallDiv {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1000;
 }
 
 .modal {
     background-color: white;
     padding: 60px;
+}
+
+button {
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 100;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 100;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
