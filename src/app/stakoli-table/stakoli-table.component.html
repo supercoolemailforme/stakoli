@@ -19,7 +19,7 @@
         <td></td>
         <td></td>
         <ng-container *ngIf="weeks[selectedWeek].begin.getDate() === 1 && weeks[selectedWeek].begin.getMonth() === 0">
-            <td class="dayTableDiv" *ngFor="let useless of getArray(6 - (weeks[0].end.getTime() - weeks[0].begin.getTime()) / (60 * 60 * 24 * 1000))">
+            <td class="dayTableDiv" *ngFor="let useless of dataService.getArray(6 - (weeks[0].end.getTime() - weeks[0].begin.getTime()) / (60 * 60 * 24 * 1000))">
                 Frei
             </td>
         </ng-container>
@@ -30,7 +30,7 @@
             </td>
         </ng-container>
         <ng-container *ngIf="weeks[selectedWeek].end.getDate() === 31 && weeks[selectedWeek].end.getMonth() === 11">
-            <td class="dayTableDiv" *ngFor="let useless of getArray(6 - (weeks[selectedWeek].end.getTime() - weeks[selectedWeek].begin.getTime()) / (60 * 60 * 24 * 1000))">
+            <td class="dayTableDiv" *ngFor="let useless of dataService.getArray(6 - (weeks[selectedWeek].end.getTime() - weeks[selectedWeek].begin.getTime()) / (60 * 60 * 24 * 1000))">
                 Frei
             </td>
         </ng-container>
@@ -43,15 +43,15 @@
             {{person.lastName + " " + person.firstName + (person.rank ? ", " + person.rank : '')}}
         </td>
         <ng-container *ngIf="weeks[selectedWeek].begin.getDate() === 1 && weeks[selectedWeek].begin.getMonth() === 0">
-            <td class="dayTableDiv" *ngFor="let useless of getArray(6 - (weeks[0].end.getTime() - weeks[0].begin.getTime()) / (60 * 60 * 24 * 1000))">
+            <td class="dayTableDiv" *ngFor="let useless of dataService.getArray(6 - (weeks[0].end.getTime() - weeks[0].begin.getTime()) / (60 * 60 * 24 * 1000))">
                 /
             </td>
         </ng-container>
         <td *ngFor="let day of getSelectedWeek()">
-            {{person.attendances[day.getDate().toString() + "." + (day.getMonth() + 1).toString()]}}
+            <app-attendance-picker [(value)]="person.attendances[day.getDate().toString() + '.' + (day.getMonth() + 1).toString()]"></app-attendance-picker>
         </td>
         <ng-container *ngIf="weeks[selectedWeek].end.getDate() === 31 && weeks[selectedWeek].end.getMonth() === 11">
-            <td class="dayTableDiv" *ngFor="let useless of getArray(6 - (weeks[selectedWeek].end.getTime() - weeks[selectedWeek].begin.getTime()) / (60 * 60 * 24 * 1000))">
+            <td class="dayTableDiv" *ngFor="let useless of dataService.getArray(6 - (weeks[selectedWeek].end.getTime() - weeks[selectedWeek].begin.getTime()) / (60 * 60 * 24 * 1000))">
                 /
             </td>
         </ng-container> 

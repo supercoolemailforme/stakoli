@@ -97,10 +97,6 @@ export class StakoliTableComponent implements OnInit {
     this.selectedWeek = (event.target as HTMLSelectElement).selectedIndex;
   }
 
-  getArray(length: number): Array<any> {
-    return new Array(length);
-  }
-
   getSelectedWeek(): Date[] {
     let weekArray: Date[] = [];
 

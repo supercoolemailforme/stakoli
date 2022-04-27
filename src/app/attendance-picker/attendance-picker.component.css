@@ -1,0 +1,35 @@
+.pickerBasisDiv {
+    position: relative;
+}
+
+.pickerBasisDiv > button {
+    text-align: center;
+    background-color: transparent;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.attendancePickerWindow {
+    background-color: #111111bb;
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    min-width: 100%;
+}
+
+.closeBtnDiv {
+    text-align: right;
+}
+
+.closeBtnDiv button {
+    font-size: 10px;
+}
+
+.attendancePickerWindow span {
+    color: white;
+}

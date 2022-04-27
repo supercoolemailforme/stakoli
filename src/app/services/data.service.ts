@@ -25,8 +25,8 @@ export class DataService {
                         anwesenheiten: []}
                     ]};*/
   data: {name: string, department: Department}[] = [];
-  attendanceTypes: string[] = [];
-  year: number = 2022;
+  attendanceTypes: string[] = ['K', 'Anw', 'DZ', 'AE', 'P', 'DR', 'ADR', '---', 'A'];
+  year: number = 2021;
 
   OnNewDataApplied = new EventEmitter<string>();
 
@@ -278,6 +278,10 @@ export class DataService {
     }
 
     return arr1;
+  }
+
+  getArray(length: number): Array<any> {
+    return new Array(length);
   }
 }
 

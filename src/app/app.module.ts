@@ -9,6 +9,7 @@ import { LoadingComponent } from './loading/loading.component';
 import { ReadOldExcelModalComponent } from './modals/read-old-excel-modal/read-old-excel-modal.component';
 import { PersonViewModalComponent } from './modals/person-view-modal/person-view-modal.component';
 import { FormsModule } from '@angular/forms';
+import { AttendancePickerComponent } from './attendance-picker/attendance-picker.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FormsModule } from '@angular/forms';
     StakoliTableComponent,
     LoadingComponent,
     ReadOldExcelModalComponent,
-    PersonViewModalComponent
+    PersonViewModalComponent,
+    AttendancePickerComponent
   ],
   imports: [
     BrowserModule,

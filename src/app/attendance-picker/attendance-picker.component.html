@@ -1,0 +1,20 @@
+<div class="pickerBasisDiv">
+    <button (click)="togglePicker()">
+        <span>
+            {{value === undefined ? "-" : value}}
+        </span>
+    </button>
+    <div *ngIf="pickerOpen" class="attendancePickerWindow">
+        <div class="closeBtnDiv">
+            <button (click)="closePicker()">x</button>
+        </div>
+        <div>
+            <button (click)="setValue('-')">
+                -
+            </button>
+            <button *ngFor="let att of dataService.attendanceTypes" (click)="setValue(att)">
+                {{att}}
+            </button>
+        </div>
+    </div>
+</div>
