@@ -1,5 +1,7 @@
-<input type="file" (change)="dataService.openFileTest($event)" accept=".xlsx" />
-<app-stakoli-table></app-stakoli-table>
+<div>
+    <input type="file" (change)="dataService.openFileTest($event)" accept=".xlsx" />
+    <app-stakoli-table></app-stakoli-table>
+</div>
 <div class="overallDiv" id="overallModalDiv">
     <app-read-old-excel-modal *ngIf="activeModalMode === modalModes.OLD_EXCEL"></app-read-old-excel-modal>
     <app-person-view-modal *ngIf="activeModalMode === modalModes.PERSON"></app-person-view-modal>

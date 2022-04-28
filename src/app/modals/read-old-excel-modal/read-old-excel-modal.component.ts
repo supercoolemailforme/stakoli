@@ -55,11 +55,11 @@ export class ReadOldExcelModalComponent implements OnInit {
   }
 
   applyData(): void {
-    let output: {name: string, department: Department}[] = [];
+    let output: Department[] = [];
 
     for (let i = 0; i < this.sheetCheck.length; ++i) {
       if (this.sheetCheck[i]) {
-        output.push({name: this.dataService.foundSheetsList[i].name, department: this.dataService.foundSheetsList[i].obj.department});
+        output.push(this.dataService.foundSheetsList[i].obj.department);
         this.dataService.attendanceTypes = this.dataService.mergeArrays(this.dataService.attendanceTypes, this.dataService.foundSheetsList[i].obj.attendanceTypes);
       }
     }
@@ -73,7 +73,8 @@ export class ReadOldExcelModalComponent implements OnInit {
     this.dataService.data = output;
     this.dataService.year = this.getPositivInteger(this.selectedYear);
     this.dataService.OnNewDataApplied.emit();
-    this.dataService.modalMode.next(ModalModes.NONE);
+
+    this.close();
   }
 
   onYearChanged(event: Event) {
@@ -86,6 +87,10 @@ export class ReadOldExcelModalComponent implements OnInit {
       return 0;
     }
     return Number.parseInt(value.toString().replace(/[^0-9]/g, ""));
+  }
+
+  close() {
+    this.dataService.modalMode.next(ModalModes.NONE);
   }
 
 }

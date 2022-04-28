@@ -3,7 +3,8 @@ import { conditionallyCreateMapObjectLiteral } from '@angular/compiler/src/rende
 import { Component, Input, OnInit } from '@angular/core';
 import { Data } from '@angular/router';
 import { threadId } from 'worker_threads';
-import { DataService } from '../services/data.service';
+import { Department } from '../data-models/department';
+import { DataService, ModalModes } from '../services/data.service';
 
 @Component({
   selector: 'app-stakoli-table',
@@ -20,6 +21,11 @@ export class StakoliTableComponent implements OnInit {
   selectedDepartmentIndex = 0;
   selectedWeek: number = 0;
   todayIndex: number = -1;
+
+  addDepartmentActive: boolean = false;
+  newDepartmentName: string = "";
+  lastDepartmentClick: {index: number, time: Date} = {index: -1, time: new Date()};
+  modifingDepartmentIndex = -1;
 
   date = Date;
   con = console;
@@ -111,6 +117,58 @@ export class StakoliTableComponent implements OnInit {
     }
 
     return weekArray;
+  }
+
+  addDepartment() {
+    if (this.addDepartmentActive) {
+      if (this.newDepartmentName !== "") {
+        this.dataService.data.push(new Department(this.newDepartmentName));
+        this.selectedDepartmentIndex = this.dataService.data.length - 1;
+        this.addDepartmentActive = false;
+        this.newDepartmentName = "";
+      }
+    }
+    else {
+      this.addDepartmentActive = true;
+    }
+  }
+
+  cancelAddDepartment() {
+    this.addDepartmentActive = false;
+    this.newDepartmentName = "";
+  }
+
+  deleteDepartment() {
+    this.dataService.data.splice(this.selectedDepartmentIndex, 1);
+    if (this.selectedDepartmentIndex === this.dataService.data.length) {
+      --this.selectedDepartmentIndex;
+    }
+  }
+
+  clickOnDepartment(index: number, event: Event) {
+    if (this.lastDepartmentClick.index === index && (new Date().getTime() - this.lastDepartmentClick.time.getTime()) / 60000 < 2) {
+      this.modifingDepartmentIndex = index;
+      this.newDepartmentName = this.dataService.data[index].name;
+    }
+    else {
+      this.selectedDepartmentIndex = index;
+      this.lastDepartmentClick = {index: index, time: new Date()};
+    }
+  }
+
+  changeDepartmentName() {
+    this.dataService.data[this.modifingDepartmentIndex].name = this.newDepartmentName;
+    this.newDepartmentName = "";
+    this.modifingDepartmentIndex = -1;
+  }
+
+  cancleChangeDepartmentName() {
+    this.newDepartmentName = "";
+    this.modifingDepartmentIndex = -1;
+  }
+
+  addPerson() {
+    this.dataService.modalMode.next(ModalModes.PERSON);
   }
 
 }

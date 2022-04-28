@@ -10,6 +10,7 @@ import { ReadOldExcelModalComponent } from './modals/read-old-excel-modal/read-o
 import { PersonViewModalComponent } from './modals/person-view-modal/person-view-modal.component';
 import { FormsModule } from '@angular/forms';
 import { AttendancePickerComponent } from './attendance-picker/attendance-picker.component';
+import { AutofocusDirective } from './directives/autofocus.directive';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AttendancePickerComponent } from './attendance-picker/attendance-picker
     LoadingComponent,
     ReadOldExcelModalComponent,
     PersonViewModalComponent,
-    AttendancePickerComponent
+    AttendancePickerComponent,
+    AutofocusDirective
   ],
   imports: [
     BrowserModule,

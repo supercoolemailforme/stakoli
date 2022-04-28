@@ -24,7 +24,7 @@ export class DataService {
                         vorname: 'Alexander', nachname: 'Neuböck-Trpisovsky', dienstgrad: 'Rekr', funktion: 'Cyber-Gwd',
                         anwesenheiten: []}
                     ]};*/
-  data: {name: string, department: Department}[] = [];
+  data: Department[] = [];
   attendanceTypes: string[] = ['K', 'Anw', 'DZ', 'AE', 'P', 'DR', 'ADR', '---', 'A'];
   year: number = 2021;
 
@@ -52,7 +52,7 @@ export class DataService {
         "{\"name\":\"S6\",\"department\":{\"name\":\"S6\",\"persons\":[{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Tischler\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Pointinger\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Stevic\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Vural\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Neuböck\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Mayerhofer\",\"rank\":\"\",\"position\":\"\"}]}}"
     ];
     for (let i of temp) {
-      this.data.push(JSON.parse(i));
+      this.data.push(JSON.parse(i).department);
     }
     console.log(this.data);
   }

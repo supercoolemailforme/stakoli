@@ -16,4 +16,5 @@
     </div>
     <input type="number" pattern="%d" [(ngModel)]="selectedYear" (input)="onYearChanged($event)" min="1900" max="4000" />
     <button (click)="applyData()">Änderungen Anwenden</button>
+    <button (click)="close()">Abbrechen</button>
 </div>

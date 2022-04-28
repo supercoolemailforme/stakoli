@@ -9,9 +9,22 @@
 <!--button (click)="year = year - 1; calcYear()">prev</button--><div>{{dataService.year}}</div><!--button (click)="year = year + 1; calcYear()">next</button-->
 
 <div>
-    <button *ngFor="let dep of dataService.data; let i = index" (click)="selectedDepartmentIndex = i" [style.font-weight]="selectedDepartmentIndex === i ? '600': 'inherit'">
-        {{dep.name}}
+    <ng-container *ngFor="let dep of dataService.data; let i = index">
+        <button *ngIf="modifingDepartmentIndex !== i" (click)="clickOnDepartment(i, $event)" [style.font-weight]="selectedDepartmentIndex === i ? '600': 'inherit'">
+            {{dep.name}}
+        </button>
+        <input autofocus *ngIf="modifingDepartmentIndex === i" (blur)="changeDepartmentName()" (keydown.enter)="changeDepartmentName()" (keydown.escape)="cancleChangeDepartmentName()" [(ngModel)]="newDepartmentName" />
+    </ng-container>
+    <input autofocus [(ngModel)]="newDepartmentName" *ngIf="addDepartmentActive" placeholder="AbteilungX" (keyup.enter)="addDepartment()" (keyup.escape)="cancelAddDepartment()"/>
+    <button (click)="addDepartment()" [disabled]="addDepartmentActive && newDepartmentName === ''">
+        +
     </button>
+    <button *ngIf="addDepartmentActive" (click)="cancelAddDepartment()">
+        X
+    </button>
+</div>
+<div>
+    <button (click)="deleteDepartment()">Abteilung löschen</button>
 </div>
 
 <table *ngIf="dataService.data.length !== 0">
@@ -35,7 +48,7 @@
             </td>
         </ng-container>
     </thead>
-    <tr *ngFor="let person of dataService.data[selectedDepartmentIndex].department.persons">
+    <tr *ngFor="let person of dataService.data[selectedDepartmentIndex].persons">
         <td>
             {{person.position}}
         </td>
@@ -57,3 +70,6 @@
         </ng-container> 
     </tr>
 </table>
+<button (click)="addPerson()">
+    Add Person
+</button>
