@@ -12,6 +12,8 @@ export class AttendancePickerComponent implements OnInit {
   @Input() value: string = "";
   @Output() valueChange = new EventEmitter<string>();
 
+  static lastActivePicker: AttendancePickerComponent;
+
   pickerOpen: boolean = false;
 
   dataService: DataService;
@@ -25,6 +27,14 @@ export class AttendancePickerComponent implements OnInit {
 
   togglePicker() {
     this.pickerOpen = !this.pickerOpen;
+
+    if (this.pickerOpen) {
+      if (AttendancePickerComponent.lastActivePicker) {
+        AttendancePickerComponent.lastActivePicker.closePicker();
+      }
+      
+      AttendancePickerComponent.lastActivePicker = this;
+    }
   }
 
   closePicker() {

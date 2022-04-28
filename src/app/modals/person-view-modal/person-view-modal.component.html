@@ -1,1 +1,31 @@
-<p>person-view-modal works!</p>
+<div class="modal">
+    <h3>Person hinzufügen</h3>
+    <div>
+        <span>
+            Nachname*
+        </span>
+        <input autofocus (keydown.enter)="selectNextInput($event)" [(ngModel)]="person.lastName" type="text" />
+    </div>
+    <div>
+        <span>
+            Vorname
+        </span>
+        <input (keydown.enter)="selectNextInput($event)" [(ngModel)]="person.firstName" type="text" />
+    </div>
+    <div>
+        <span>
+            Rang
+        </span>
+        <input (keydown.enter)="selectNextInput($event)" [(ngModel)]="person.rank" type="text" />
+    </div>
+    <div>
+        <span>
+            Funktion
+        </span>
+        <input (keydown.enter)="save()" [(ngModel)]="person.position" type="text" />
+    </div>
+    <div>
+        <button (click)="save()" [disabled]="person.lastName === ''">Speichern</button>
+        <button (click)="cancel()">Abbrechen</button>
+    </div>
+</div>

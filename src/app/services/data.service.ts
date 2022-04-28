@@ -28,7 +28,9 @@ export class DataService {
   attendanceTypes: string[] = ['K', 'Anw', 'DZ', 'AE', 'P', 'DR', 'ADR', '---', 'A'];
   year: number = 2021;
 
-  OnNewDataApplied = new EventEmitter<string>();
+  OnNewDataApplied: EventEmitter<string> = new EventEmitter<string>();
+
+  OnAddPersonEvent: undefined | ((p: Person | undefined) => void) = undefined;
 
 
   // utility-variables
@@ -52,7 +54,8 @@ export class DataService {
         "{\"name\":\"S6\",\"department\":{\"name\":\"S6\",\"persons\":[{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Tischler\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Pointinger\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Stevic\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Vural\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Neuböck\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Mayerhofer\",\"rank\":\"\",\"position\":\"\"}]}}"
     ];
     for (let i of temp) {
-      this.data.push(JSON.parse(i).department);
+      let dep = JSON.parse(i).department as Department;
+      this.data.push(new Department(dep.name, dep.persons));
     }
     console.log(this.data);
   }

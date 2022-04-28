@@ -3,7 +3,7 @@ import { conditionallyCreateMapObjectLiteral } from '@angular/compiler/src/rende
 import { Component, Input, OnInit } from '@angular/core';
 import { Data } from '@angular/router';
 import { threadId } from 'worker_threads';
-import { Department } from '../data-models/department';
+import { Department, Person } from '../data-models/department';
 import { DataService, ModalModes } from '../services/data.service';
 
 @Component({
@@ -168,6 +168,16 @@ export class StakoliTableComponent implements OnInit {
   }
 
   addPerson() {
+    this.dataService.OnAddPersonEvent = (p: Person | undefined) => {
+      this.dataService.OnAddPersonEvent = undefined;
+
+      if (p) {
+        console.log(this.dataService.data[this.selectedDepartmentIndex]);
+        this.dataService.data[this.selectedDepartmentIndex].addPerson(p);
+      }
+
+      this.dataService.modalMode.next(ModalModes.NONE);
+    }
     this.dataService.modalMode.next(ModalModes.PERSON);
   }
 

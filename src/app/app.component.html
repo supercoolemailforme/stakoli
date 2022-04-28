@@ -4,6 +4,6 @@
 </div>
 <div class="overallDiv" id="overallModalDiv">
     <app-read-old-excel-modal *ngIf="activeModalMode === modalModes.OLD_EXCEL"></app-read-old-excel-modal>
-    <app-person-view-modal *ngIf="activeModalMode === modalModes.PERSON"></app-person-view-modal>
+    <app-person-view-modal *ngIf="activeModalMode === modalModes.PERSON" (personChanged)="dataService.OnAddPersonEvent ? dataService.OnAddPersonEvent($event) : ''"></app-person-view-modal>
 </div>
 <app-loading></app-loading>
