@@ -1,0 +1,33 @@
+<div class="modal">
+    <div class="topPersonDiv">
+        <span>{{person.rank}}</span>
+        <h2>{{person.firstName + " " + person.lastName}}</h2>
+        <span>{{person.position}}</span>
+        <button (click)="editPerson()">Edit</button>
+    </div>
+    <div>
+        <button (click)="selectedSiteIndex = 0" [class.selected]="selectedSiteIndex === 0">
+            Übersicht
+        </button>
+        <button (click)="selectedSiteIndex = 1" [class.selected]="selectedSiteIndex === 1">
+            Urlaube
+        </button>
+        <button (click)="selectedSiteIndex = 2" [class.selected]="selectedSiteIndex === 2">
+            Optionen
+        </button>
+    </div>
+    <div class="contentDiv">
+        <div class="site" *ngIf="selectedSiteIndex === 0">
+            Übersicht
+        </div>
+        <div class="site" *ngIf="selectedSiteIndex === 1">
+            Urlaube
+        </div>
+        <div class="site" *ngIf="selectedSiteIndex === 2">
+            Optionen
+        </div>
+    </div>
+    <div class="bottomPersonDiv">
+        <button (click)="cancel()">Schließen</button>
+    </div>
+</div>

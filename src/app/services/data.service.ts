@@ -30,6 +30,8 @@ export class DataService {
 
   OnNewDataApplied: EventEmitter<string> = new EventEmitter<string>();
 
+  selectedPerson: {departmentIndex: number, personIndex: number} | undefined = undefined;
+  editPerson: Person | undefined;
   OnAddPersonEvent: undefined | ((p: Person | undefined) => void) = undefined;
 
 
@@ -288,4 +290,4 @@ export class DataService {
   }
 }
 
-export enum ModalModes{ NONE, OLD_EXCEL, PERSON }; 
+export enum ModalModes{ NONE, OLD_EXCEL, PERSON, PERSON_MAIN }; 

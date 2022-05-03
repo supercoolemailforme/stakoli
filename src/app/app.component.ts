@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Person } from './data-models/department';
 import { DataService, ModalModes } from './services/data.service';
 
 @Component({
@@ -20,5 +21,9 @@ export class AppComponent {
     data.modalMode.subscribe(mm => {
       this.activeModalMode = mm;
     });
+  }
+
+  newPerson(): Person {
+    return new Person("");
   }
 }

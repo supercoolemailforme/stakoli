@@ -29,7 +29,7 @@ export class AttendancePickerComponent implements OnInit {
     this.pickerOpen = !this.pickerOpen;
 
     if (this.pickerOpen) {
-      if (AttendancePickerComponent.lastActivePicker) {
+      if (AttendancePickerComponent.lastActivePicker && AttendancePickerComponent.lastActivePicker !== this) {
         AttendancePickerComponent.lastActivePicker.closePicker();
       }
       

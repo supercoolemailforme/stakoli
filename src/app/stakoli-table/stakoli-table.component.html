@@ -48,12 +48,14 @@
             </td>
         </ng-container>
     </thead>
-    <tr *ngFor="let person of dataService.data[selectedDepartmentIndex].persons">
+    <tr *ngFor="let person of dataService.data[selectedDepartmentIndex].persons; let i = index">
         <td>
             {{person.position}}
         </td>
         <td>
-            {{person.lastName + " " + person.firstName + (person.rank ? ", " + person.rank : '')}}
+            <button class="nameBtn" (click)="editPerson(i)">
+                {{person.lastName + " " + person.firstName + (person.rank ? ", " + person.rank : '')}}
+            </button>
         </td>
         <ng-container *ngIf="weeks[selectedWeek].begin.getDate() === 1 && weeks[selectedWeek].begin.getMonth() === 0">
             <td class="dayTableDiv" *ngFor="let useless of dataService.getArray(6 - (weeks[0].end.getTime() - weeks[0].begin.getTime()) / (60 * 60 * 24 * 1000))">

@@ -146,7 +146,7 @@ export class StakoliTableComponent implements OnInit {
   }
 
   clickOnDepartment(index: number, event: Event) {
-    if (this.lastDepartmentClick.index === index && (new Date().getTime() - this.lastDepartmentClick.time.getTime()) / 60000 < 2) {
+    if (this.lastDepartmentClick.index === index && (new Date().getTime() - this.lastDepartmentClick.time.getTime()) / 1000 < 1) {
       this.modifingDepartmentIndex = index;
       this.newDepartmentName = this.dataService.data[index].name;
     }
@@ -157,6 +157,10 @@ export class StakoliTableComponent implements OnInit {
   }
 
   changeDepartmentName() {
+    if (! this.dataService.data[this.modifingDepartmentIndex]) {
+      return;
+    }
+
     this.dataService.data[this.modifingDepartmentIndex].name = this.newDepartmentName;
     this.newDepartmentName = "";
     this.modifingDepartmentIndex = -1;
@@ -172,13 +176,17 @@ export class StakoliTableComponent implements OnInit {
       this.dataService.OnAddPersonEvent = undefined;
 
       if (p) {
-        console.log(this.dataService.data[this.selectedDepartmentIndex]);
         this.dataService.data[this.selectedDepartmentIndex].addPerson(p);
       }
 
       this.dataService.modalMode.next(ModalModes.NONE);
     }
     this.dataService.modalMode.next(ModalModes.PERSON);
+  }
+
+  editPerson(index: number) {
+    this.dataService.selectedPerson = {departmentIndex: this.selectedDepartmentIndex, personIndex: index};
+    this.dataService.modalMode.next(ModalModes.PERSON_MAIN);
   }
 
 }
