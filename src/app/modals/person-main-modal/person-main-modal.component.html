@@ -1,11 +1,29 @@
-<div class="modal">
+<div class="outherDiv">
     <div class="topPersonDiv">
-        <span>{{person.rank}}</span>
-        <h2>{{person.firstName + " " + person.lastName}}</h2>
-        <span>{{person.position}}</span>
-        <button (click)="editPerson()">Edit</button>
+        <button class="prevPersonBtn" (click)="prevPerson()" [disabled]="this.selectedPerson.personIndex === 0">
+            <svg viewBox="0 0 24 24">
+                <rect fill="white" x="5" y="5" height="14" width="14"></rect>
+                <path fill="currentColor" d="M19,3H5A2,2 0 0,0 3,5V19C3,20.11 3.9,21 5,21H19C20.11,21 21,20.11 21,19V5A2,2 0 0,0 19,3M15.71,16.59L14.29,18L8.29,12L14.29,6L15.71,7.41L11.12,12L15.71,16.59Z" />
+            </svg>
+        </button>
+        <button class="nextPersonBtn" (click)="nextPerson()" [disabled]="this.selectedPerson.personIndex === dataService.data[selectedPerson.departmentIndex].persons.length - 1">
+            <svg viewBox="0 0 24 24">
+                <rect fill="white" x="5" y="5" height="14" width="14"></rect>
+                <path fill="currentColor" d="M19,3H5A2,2 0 0,0 3,5V19C3,20.11 3.9,21 5,21H19C20.11,21 21,20.11 21,19V5A2,2 0 0,0 19,3M9.71,18L8.29,16.59L12.88,12L8.29,7.41L9.71,6L15.71,12L9.71,18Z" />
+            </svg>
+        </button>
+        <div>
+            <span class="rank">{{person.rank}}</span>
+            <h2>{{person.firstName + " " + person.lastName}}</h2>
+        </div>
+        <span class="positionText">{{(person.position ? (person.position + " / ") : '') + dataService.data[selectedPerson.departmentIndex].name}}</span>
+        <button class="editBtn" (click)="editPerson()">
+            <svg viewBox="0 0 24 24">
+                <path fill="currentColor" d="M21.7,13.35L20.7,14.35L18.65,12.3L19.65,11.3C19.86,11.09 20.21,11.09 20.42,11.3L21.7,12.58C21.91,12.79 21.91,13.14 21.7,13.35M12,18.94L18.06,12.88L20.11,14.93L14.06,21H12V18.94M12,14C7.58,14 4,15.79 4,18V20H10V18.11L14,14.11C13.34,14.03 12.67,14 12,14M12,4A4,4 0 0,0 8,8A4,4 0 0,0 12,12A4,4 0 0,0 16,8A4,4 0 0,0 12,4Z" />
+            </svg>
+        </button>
     </div>
-    <div>
+    <div class="headerBtnDiv">
         <button (click)="selectedSiteIndex = 0" [class.selected]="selectedSiteIndex === 0">
             Übersicht
         </button>
@@ -16,18 +34,33 @@
             Optionen
         </button>
     </div>
-    <div class="contentDiv">
-        <div class="site" *ngIf="selectedSiteIndex === 0">
-            Übersicht
+    <div class="modal">
+        <div class="contentDiv">
+            <div class="site" *ngIf="selectedSiteIndex === 0" class="summary">
+                <h4>{{attendanceLength}} Einträge</h4>
+                <div class="attendanceSummaries">
+                    <div *ngFor="let att of attendanceSummary; let i = index">
+                        <span>{{dataService.attendanceTypes[i]}}</span>
+                        <span>{{att}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="site" *ngIf="selectedSiteIndex === 1">
+                <h3>Urlaube</h3>
+            </div>
+            <div class="site" *ngIf="selectedSiteIndex === 2">
+                <h3>Optionen</h3>
+                <button (click)="deletePerson()" class="actionBtn negativBtn">Person löschen</button>
+                <label>Verschieben nach</label>
+                <select (change)="switchDepartment($event)">
+                    <option *ngFor="let dep of dataService.data; let i = index" [selected]="i === selectedPerson.departmentIndex" [value]="i">
+                        {{dep.name}}
+                    </option>
+                </select>
+            </div>
         </div>
-        <div class="site" *ngIf="selectedSiteIndex === 1">
-            Urlaube
+        <div class="modalButtomBtnDiv">
+            <button (click)="cancel()" class="actionBtn">Schließen</button>
         </div>
-        <div class="site" *ngIf="selectedSiteIndex === 2">
-            Optionen
-        </div>
-    </div>
-    <div class="bottomPersonDiv">
-        <button (click)="cancel()">Schließen</button>
     </div>
 </div>

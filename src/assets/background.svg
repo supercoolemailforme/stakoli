@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<svg viewBox="50 0 500 512" height="512px" width="525px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <g>
+      <polygon points="0,0 75,0 37.5,64" style="fill: rgb(61, 74, 53); animation-delay: 1.5s;"></polygon>
+      <polygon points="37.5,64 112.5,64 75,0" style="fill: rgb(61, 74, 53); animation-delay: 1.5s;"></polygon>
+    </g>
+    <g>
+      <polygon points="75,0 150,0 112.5,64" style="fill: rgb(51, 63, 31); animation-delay: 1.62s;"></polygon>
+      <polygon points="112.5,64 187.5,64 150,0" style="fill: rgb(78, 90, 67); animation-delay: 1.62s;"></polygon>
+    </g>
+    <g>
+      <polygon points="150,0 225,0 187.5,64" style="fill: rgb(51, 63, 31); animation-delay: 1.74s;"></polygon>
+      <polygon points="187.5,64 262.5,64 225,0" style="fill: rgb(51, 63, 31); animation-delay: 1.74s;"></polygon>
+    </g>
+    <g>
+      <polygon points="225,0 300,0 262.5,64" style="fill: rgb(51, 63, 31); animation-delay: 1.86s;"></polygon>
+      <polygon points="262.5,64 337.5,64 300,0" style="fill: rgb(78, 90, 67); animation-delay: 1.86s;"></polygon>
+    </g>
+    <g>
+      <polygon points="300,0 375,0 337.5,64" style="fill: rgb(78, 90, 67); animation-delay: 1.98s;"></polygon>
+      <polygon points="337.5,64 412.5,64 375,0" style="fill: rgb(61, 74, 53); animation-delay: 1.98s;"></polygon>
+    </g>
+    <g>
+      <polygon points="375,0 450,0 412.5,64" style="fill: rgb(52, 55, 33); animation-delay: 2.1s;"></polygon>
+      <polygon points="412.5,64 487.5,64 450,0" style="fill: rgb(51, 63, 31); animation-delay: 2.1s;"></polygon>
+    </g>
+    <g>
+      <polygon points="450,0 525,0 487.5,64" style="fill: rgb(51, 63, 31); animation-delay: 2.22s;"></polygon>
+      <polygon points="487.5,64 562.5,64 525,0" style="fill: rgb(78, 90, 67); animation-delay: 2.22s;"></polygon>
+    </g>
+    <g>
+      <polygon points="525,0 600,0 562.5,64" style="fill: rgb(61, 74, 53); animation-delay: 2.34s;"></polygon>
+    </g>
+  </g>
+  <g>
+    <g>
+      <polygon points="0,128 75,128 37.5,64" style="fill: rgb(78, 90, 67); animation-delay: 1.62s;"></polygon>
+    </g>
+    <g>
+      <polygon points="37.5,64 112.5,64 75,128" style="fill: rgb(78, 90, 67); animation-delay: 1.74s;"></polygon>
+      <polygon points="75,128 150,128 112.5,64" style="fill: rgb(98, 108, 85); animation-delay: 1.74s;"></polygon>
+    </g>
+    <g>
+      <polygon points="112.5,64 187.5,64 150,128" style="fill: rgb(51, 63, 31); animation-delay: 1.86s;"></polygon>
+      <polygon points="150,128 225,128 187.5,64" style="fill: rgb(52, 55, 33); animation-delay: 1.86s;"></polygon>
+    </g>
+    <g>
+      <polygon points="187.5,64 262.5,64 225,128" style="fill: rgb(78, 90, 67); animation-delay: 1.98s;"></polygon>
+      <polygon points="225,128 300,128 262.5,64" style="fill: rgb(52, 55, 33); animation-delay: 1.98s;"></polygon>
+    </g>
+    <g>
+      <polygon points="262.5,64 337.5,64 300,128" style="fill: rgb(51, 63, 31); animation-delay: 2.1s;"></polygon>
+      <polygon points="300,128 375,128 337.5,64" style="fill: rgb(61, 74, 53); animation-delay: 2.1s;"></polygon>
+    </g>
+    <g>
+      <polygon points="337.5,64 412.5,64 375,128" style="fill: rgb(61, 74, 53); animation-delay: 2.22s;"></polygon>
+      <polygon points="375,128 450,128 412.5,64" style="fill: rgb(61, 74, 53); animation-delay: 2.22s;"></polygon>
+    </g>
+    <g>
+      <polygon points="412.5,64 487.5,64 450,128" style="fill: rgb(52, 55, 33); animation-delay: 2.34s;"></polygon>
+      <polygon points="450,128 525,128 487.5,64" style="fill: rgb(51, 63, 31); animation-delay: 2.34s;"></polygon>
+    </g>
+    <g>
+      <polygon points="487.5,64 562.5,64 525,128" style="fill: rgb(98, 108, 85); animation-delay: 2.46s;"></polygon>
+      <polygon points="525,128 600,128 562.5,64" style="fill: rgb(78, 90, 67); animation-delay: 2.46s;"></polygon>
+    </g>
+  </g>
+  <g>
+    <g>
+      <polygon points="0,128 75,128 37.5,192" style="fill: rgb(61, 74, 53); animation-delay: 1.74s;"></polygon>
+      <polygon points="37.5,192 112.5,192 75,128" style="fill: rgb(61, 74, 53); animation-delay: 1.74s;"></polygon>
+    </g>
+    <g>
+      <polygon points="75,128 150,128 112.5,192" style="fill: rgb(52, 55, 33); animation-delay: 1.86s;"></polygon>
+      <polygon points="112.5,192 187.5,192 150,128" style="fill: rgb(61, 74, 53); animation-delay: 1.86s;"></polygon>
+    </g>
+    <g>
+      <polygon points="150,128 225,128 187.5,192" style="fill: rgb(51, 63, 31); animation-delay: 1.98s;"></polygon>
+      <polygon points="187.5,192 262.5,192 225,128" style="fill: rgb(78, 90, 67); animation-delay: 1.98s;"></polygon>
+    </g>
+    <g>
+      <polygon points="225,128 300,128 262.5,192" style="fill: rgb(61, 74, 53); animation-delay: 2.1s;"></polygon>
+      <polygon points="262.5,192 337.5,192 300,128" style="fill: rgb(78, 90, 67); animation-delay: 2.1s;"></polygon>
+    </g>
+    <g>
+      <polygon points="300,128 375,128 337.5,192" style="fill: rgb(61, 74, 53); animation-delay: 2.22s;"></polygon>
+      <polygon points="337.5,192 412.5,192 375,128" style="fill: rgb(61, 74, 53); animation-delay: 2.22s;"></polygon>
+    </g>
+    <g>
+      <polygon points="375,128 450,128 412.5,192" style="fill: rgb(52, 55, 33); animation-delay: 2.34s;"></polygon>
+      <polygon points="412.5,192 487.5,192 450,128" style="fill: rgb(51, 63, 31); animation-delay: 2.34s;"></polygon>
+    </g>
+    <g>
+      <polygon points="450,128 525,128 487.5,192" style="fill: rgb(51, 63, 31); animation-delay: 2.46s;"></polygon>
+      <polygon points="487.5,192 562.5,192 525,128" style="fill: rgb(61, 74, 53); animation-delay: 2.46s;"></polygon>
+    </g>
+    <g>
+      <polygon points="525,128 600,128 562.5,192" style="fill: rgb(61, 74, 53); animation-delay: 2.58s;"></polygon>
+    </g>
+  </g>
+  <g>
+    <g>
+      <polygon points="0,256 75,256 37.5,192" style="fill: rgb(51, 63, 31); animation-delay: 1.86s;"></polygon>
+    </g>
+    <g>
+      <polygon points="37.5,192 112.5,192 75,256" style="fill: rgb(78, 90, 67); animation-delay: 1.98s;"></polygon>
+      <polygon points="75,256 150,256 112.5,192" style="fill: rgb(51, 63, 31); animation-delay: 1.98s;"></polygon>
+    </g>
+    <g>
+      <polygon points="112.5,192 187.5,192 150,256" style="fill: rgb(51, 63, 31); animation-delay: 2.1s;"></polygon>
+      <polygon points="150,256 225,256 187.5,192" style="fill: rgb(78, 90, 67); animation-delay: 2.1s;"></polygon>
+    </g>
+    <g>
+      <polygon points="187.5,192 262.5,192 225,256" style="fill: rgb(61, 74, 53); animation-delay: 2.22s;"></polygon>
+      <polygon points="225,256 300,256 262.5,192" style="fill: rgb(52, 55, 33); animation-delay: 2.22s;"></polygon>
+    </g>
+    <g>
+      <polygon points="262.5,192 337.5,192 300,256" style="fill: rgb(61, 74, 53); animation-delay: 2.34s;"></polygon>
+      <polygon points="300,256 375,256 337.5,192" style="fill: rgb(98, 108, 85); animation-delay: 2.34s;"></polygon>
+    </g>
+    <g>
+      <polygon points="337.5,192 412.5,192 375,256" style="fill: rgb(78, 90, 67); animation-delay: 2.46s;"></polygon>
+      <polygon points="375,256 450,256 412.5,192" style="fill: rgb(78, 90, 67); animation-delay: 2.46s;"></polygon>
+    </g>
+    <g>
+      <polygon points="412.5,192 487.5,192 450,256" style="fill: rgb(51, 63, 31); animation-delay: 2.58s;"></polygon>
+      <polygon points="450,256 525,256 487.5,192" style="fill: rgb(78, 90, 67); animation-delay: 2.58s;"></polygon>
+    </g>
+    <g>
+      <polygon points="487.5,192 562.5,192 525,256" style="fill: rgb(61, 74, 53); animation-delay: 2.7s;"></polygon>
+      <polygon points="525,256 600,256 562.5,192" style="fill: rgb(51, 63, 31); animation-delay: 2.7s;"></polygon>
+    </g>
+  </g>
+  <g>
+    <g>
+      <polygon points="0,256 75,256 37.5,320" style="fill: rgb(51, 63, 31); animation-delay: 1.98s;"></polygon>
+      <polygon points="37.5,320 112.5,320 75,256" style="fill: rgb(78, 90, 67); animation-delay: 1.98s;"></polygon>
+    </g>
+    <g>
+      <polygon points="75,256 150,256 112.5,320" style="fill: rgb(61, 74, 53); animation-delay: 2.1s;"></polygon>
+      <polygon points="112.5,320 187.5,320 150,256" style="fill: rgb(98, 108, 85); animation-delay: 2.1s;"></polygon>
+    </g>
+    <g>
+      <polygon points="150,256 225,256 187.5,320" style="fill: rgb(78, 90, 67); animation-delay: 2.22s;"></polygon>
+      <polygon points="187.5,320 262.5,320 225,256" style="fill: rgb(78, 90, 67); animation-delay: 2.22s;"></polygon>
+    </g>
+    <g>
+      <polygon points="225,256 300,256 262.5,320" style="fill: rgb(61, 74, 53); animation-delay: 2.34s;"></polygon>
+      <polygon points="262.5,320 337.5,320 300,256" style="fill: rgb(78, 90, 67); animation-delay: 2.34s;"></polygon>
+    </g>
+    <g>
+      <polygon points="300,256 375,256 337.5,320" style="fill: rgb(78, 90, 67); animation-delay: 2.46s;"></polygon>
+      <polygon points="337.5,320 412.5,320 375,256" style="fill: rgb(61, 74, 53); animation-delay: 2.46s;"></polygon>
+    </g>
+    <g>
+      <polygon points="375,256 450,256 412.5,320" style="fill: rgb(61, 74, 53); animation-delay: 2.58s;"></polygon>
+      <polygon points="412.5,320 487.5,320 450,256" style="fill: rgb(52, 55, 33); animation-delay: 2.58s;"></polygon>
+    </g>
+    <g>
+      <polygon points="450,256 525,256 487.5,320" style="fill: rgb(61, 74, 53); animation-delay: 2.7s;"></polygon>
+      <polygon points="487.5,320 562.5,320 525,256" style="fill: rgb(61, 74, 53); animation-delay: 2.7s;"></polygon>
+    </g>
+    <g>
+      <polygon points="525,256 600,256 562.5,320" style="fill: rgb(51, 63, 31); animation-delay: 2.82s;"></polygon>
+    </g>
+  </g>
+  <g>
+    <g>
+      <polygon points="0,384 75,384 37.5,320" style="fill: rgb(51, 63, 31); animation-delay: 2.1s;"></polygon>
+    </g>
+    <g>
+      <polygon points="37.5,320 112.5,320 75,384" style="fill: rgb(61, 74, 53); animation-delay: 2.22s;"></polygon>
+      <polygon points="75,384 150,384 112.5,320" style="fill: rgb(51, 63, 31); animation-delay: 2.22s;"></polygon>
+    </g>
+    <g>
+      <polygon points="112.5,320 187.5,320 150,384" style="fill: rgb(61, 74, 53); animation-delay: 2.34s;"></polygon>
+      <polygon points="150,384 225,384 187.5,320" style="fill: rgb(52, 55, 33); animation-delay: 2.34s;"></polygon>
+    </g>
+    <g>
+      <polygon points="187.5,320 262.5,320 225,384" style="fill: rgb(51, 63, 31); animation-delay: 2.46s;"></polygon>
+      <polygon points="225,384 300,384 262.5,320" style="fill: rgb(61, 74, 53); animation-delay: 2.46s;"></polygon>
+    </g>
+    <g>
+      <polygon points="262.5,320 337.5,320 300,384" style="fill: rgb(61, 74, 53); animation-delay: 2.58s;"></polygon>
+      <polygon points="300,384 375,384 337.5,320" style="fill: rgb(51, 63, 31); animation-delay: 2.58s;"></polygon>
+    </g>
+    <g>
+      <polygon points="337.5,320 412.5,320 375,384" style="fill: rgb(78, 90, 67); animation-delay: 2.7s;"></polygon>
+      <polygon points="375,384 450,384 412.5,320" style="fill: rgb(78, 90, 67); animation-delay: 2.7s;"></polygon>
+    </g>
+    <g>
+      <polygon points="412.5,320 487.5,320 450,384" style="fill: rgb(98, 108, 85); animation-delay: 2.82s;"></polygon>
+      <polygon points="450,384 525,384 487.5,320" style="fill: rgb(78, 90, 67); animation-delay: 2.82s;"></polygon>
+    </g>
+    <g>
+      <polygon points="487.5,320 562.5,320 525,384" style="fill: rgb(61, 74, 53); animation-delay: 2.94s;"></polygon>
+      <polygon points="525,384 600,384 562.5,320" style="fill: rgb(51, 63, 31); animation-delay: 2.94s;"></polygon>
+    </g>
+  </g>
+  <g>
+    <g>
+      <polygon points="0,384 75,384 37.5,448" style="fill: rgb(78, 90, 67); animation-delay: 2.22s;"></polygon>
+      <polygon points="37.5,448 112.5,448 75,384" style="fill: rgb(52, 55, 33); animation-delay: 2.22s;"></polygon>
+    </g>
+    <g>
+      <polygon points="75,384 150,384 112.5,448" style="fill: rgb(61, 74, 53); animation-delay: 2.34s;"></polygon>
+      <polygon points="112.5,448 187.5,448 150,384" style="fill: rgb(52, 55, 33); animation-delay: 2.34s;"></polygon>
+    </g>
+    <g>
+      <polygon points="150,384 225,384 187.5,448" style="fill: rgb(52, 55, 33); animation-delay: 2.46s;"></polygon>
+      <polygon points="187.5,448 262.5,448 225,384" style="fill: rgb(61, 74, 53); animation-delay: 2.46s;"></polygon>
+    </g>
+    <g>
+      <polygon points="225,384 300,384 262.5,448" style="fill: rgb(78, 90, 67); animation-delay: 2.58s;"></polygon>
+      <polygon points="262.5,448 337.5,448 300,384" style="fill: rgb(61, 74, 53); animation-delay: 2.58s;"></polygon>
+    </g>
+    <g>
+      <polygon points="300,384 375,384 337.5,448" style="fill: rgb(51, 63, 31); animation-delay: 2.7s;"></polygon>
+      <polygon points="337.5,448 412.5,448 375,384" style="fill: rgb(52, 55, 33); animation-delay: 2.7s;"></polygon>
+    </g>
+    <g>
+      <polygon points="375,384 450,384 412.5,448" style="fill: rgb(61, 74, 53); animation-delay: 2.82s;"></polygon>
+      <polygon points="412.5,448 487.5,448 450,384" style="fill: rgb(52, 55, 33); animation-delay: 2.82s;"></polygon>
+    </g>
+    <g>
+      <polygon points="450,384 525,384 487.5,448" style="fill: rgb(52, 55, 33); animation-delay: 2.94s;"></polygon>
+      <polygon points="487.5,448 562.5,448 525,384" style="fill: rgb(78, 90, 67); animation-delay: 2.94s;"></polygon>
+    </g>
+    <g>
+      <polygon points="525,384 600,384 562.5,448" style="fill: rgb(78, 90, 67); animation-delay: 3.06s;"></polygon>
+    </g>
+  </g>
+  <g>
+    <g>
+      <polygon points="0,512 75,512 37.5,448" style="fill: rgb(51, 63, 31); animation-delay: 2.34s;"></polygon>
+    </g>
+    <g>
+      <polygon points="37.5,448 112.5,448 75,512" style="fill: rgb(51, 63, 31); animation-delay: 2.46s;"></polygon>
+      <polygon points="75,512 150,512 112.5,448" style="fill: rgb(61, 74, 53); animation-delay: 2.46s;"></polygon>
+    </g>
+    <g>
+      <polygon points="112.5,448 187.5,448 150,512" style="fill: rgb(78, 90, 67); animation-delay: 2.58s;"></polygon>
+      <polygon points="150,512 225,512 187.5,448" style="fill: rgb(61, 74, 53); animation-delay: 2.58s;"></polygon>
+    </g>
+    <g>
+      <polygon points="187.5,448 262.5,448 225,512" style="fill: rgb(52, 55, 33); animation-delay: 2.7s;"></polygon>
+      <polygon points="225,512 300,512 262.5,448" style="fill: rgb(78, 90, 67); animation-delay: 2.7s;"></polygon>
+    </g>
+    <g>
+      <polygon points="262.5,448 337.5,448 300,512" style="fill: rgb(98, 108, 85); animation-delay: 2.82s;"></polygon>
+      <polygon points="300,512 375,512 337.5,448" style="fill: rgb(52, 55, 33); animation-delay: 2.82s;"></polygon>
+    </g>
+    <g>
+      <polygon points="337.5,448 412.5,448 375,512" style="fill: rgb(98, 108, 85); animation-delay: 2.94s;"></polygon>
+      <polygon points="375,512 450,512 412.5,448" style="fill: rgb(51, 63, 31); animation-delay: 2.94s;"></polygon>
+    </g>
+    <g>
+      <polygon points="412.5,448 487.5,448 450,512" style="fill: rgb(61, 74, 53); animation-delay: 3.06s;"></polygon>
+      <polygon points="450,512 525,512 487.5,448" style="fill: rgb(61, 74, 53); animation-delay: 3.06s;"></polygon>
+    </g>
+    <g>
+      <polygon points="487.5,448 562.5,448 525,512" style="fill: rgb(52, 55, 33); animation-delay: 3.18s;"></polygon>
+      <polygon points="525,512 600,512 562.5,448" style="fill: rgb(51, 63, 31); animation-delay: 3.18s;"></polygon>
+    </g>
+  </g>
+</svg>

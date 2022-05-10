@@ -2,8 +2,8 @@
     <svg class="logo-background">
         <g *ngFor="let useless1 of dataService.getArray(trianglesRowCtn); let rowIndex = index">
             <g *ngFor="let useless2 of dataService.getArray(trianglesColumnCnt); let columnIndex = index">
-                <polygon *ngIf="columnIndex !== 0 || rowIndex % 2 === 0" [attr.points]="getPolygonPoints1(columnIndex, rowIndex)" [ngStyle]="{fill: getRandomColor(columnIndex, rowIndex), display: (getDisappearValue(columnIndex + 0.5, rowIndex + 0.5) ? 'none' : 'auto'), 'animation-delay': getTriangleAnimationDelay(columnIndex, rowIndex)}"></polygon>
-                <polygon *ngIf="columnIndex !== trianglesColumnCnt - 1 || rowIndex % 2 === 1" [attr.points]="getPolygonPoints2(columnIndex, rowIndex)" [ngStyle]="{fill: getRandomColor(columnIndex, rowIndex), display: (getDisappearValue(columnIndex + 0.5, rowIndex + 0.5) ? 'none' : 'auto'), 'animation-delay': getTriangleAnimationDelay(columnIndex, rowIndex)}"></polygon>
+                <polygon *ngIf="columnIndex !== 0 || rowIndex % 2 === 0" [attr.points]="getPolygonPoints1(columnIndex, rowIndex)" [ngStyle]="{fill: getRandomColor(columnIndex, rowIndex), display: (getDisappearValue(columnIndex, rowIndex + 0.5) ? 'none' : 'auto'), 'animation-delay': getTriangleAnimationDelay(columnIndex, rowIndex)}"></polygon>
+                <polygon *ngIf="columnIndex !== trianglesColumnCnt - 1 || rowIndex % 2 === 1" [attr.points]="getPolygonPoints2(columnIndex, rowIndex)" [ngStyle]="{fill: getRandomColor(columnIndex + 0.5, rowIndex), display: (getDisappearValue(columnIndex + 0.5, rowIndex + 0.5) ? 'none' : 'auto'), 'animation-delay': getTriangleAnimationDelay(columnIndex, rowIndex)}"></polygon>
             </g>
         </g>
     </svg>
