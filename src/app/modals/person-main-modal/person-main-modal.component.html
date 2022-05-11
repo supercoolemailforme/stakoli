@@ -13,7 +13,7 @@
             </svg>
         </button>
         <div>
-            <span class="rank">{{person.rank}}</span>
+            <span class="rank">{{dataService.getRankLong(person.rank)}}</span>
             <h2>{{person.firstName + " " + person.lastName}}</h2>
         </div>
         <span class="positionText">{{(person.position ? (person.position + " / ") : '') + dataService.data[selectedPerson.departmentIndex].name}}</span>
@@ -50,8 +50,8 @@
             </div>
             <div class="site" *ngIf="selectedSiteIndex === 2">
                 <h3>Optionen</h3>
-                <button (click)="deletePerson()" class="actionBtn negativBtn">Person löschen</button>
-                <label>Verschieben nach</label>
+                <button (click)="deletePerson()" class="actionBtn negativBtn">Löschen</button>
+                <label>Abteilung</label>
                 <select (change)="switchDepartment($event)">
                     <option *ngFor="let dep of dataService.data; let i = index" [selected]="i === selectedPerson.departmentIndex" [value]="i">
                         {{dep.name}}

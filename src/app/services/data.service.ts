@@ -26,6 +26,7 @@ export class DataService {
                     ]};*/
   data: Department[] = [];
   attendanceTypes: string[] = ['K', 'Anw', 'DZ', 'AE', 'P', 'DR', 'ADR', '---', 'A'];
+  ranks: {long: string, short: string}[] = [{long: "Rekrut", short: "Rekr"}, {long: "Gefreiter", short: "Gfr"}, {long: "Korporal", short: "Kpl"}, {long: "Zugsführer", short: "Zgf"}, {long: "Wachtmeister", short: "Wm"}, {long: "Oberwachtmeister", short: "OWm"}, {long: "Stabswachtmeister", short: "StWm"}, {long: "Oberstabswachtmeister", short: "OStWm"}, {long: "Offiziersstellvertreter", short: "OStv"}, {long: "Vizeleutnant", short: "Vzlt"}, {long: "Fähnrich", short: "Fhr"}, {long: "Leutnant", short: "Lt"}, {long: "Oberleutnant", short: "Olt"}, {long: "Hauptmann", short: "Hptm"}, {long: "Major", short: "Mjr"}, {long: "Oberstleutnant", short: "Obstlt"}, {long: "Oberst", short: "Obst"}, {long: "Brigadier", short: "Bgdr"}, {long: "Generalmajor", short: "GenMjr"}, {long: "Generalleutnant", short: "GenLt"}, {long: "General", short: "Gen"}];
   year: number = 2021;
 
   OnNewDataApplied: EventEmitter<string> = new EventEmitter<string>();
@@ -51,9 +52,9 @@ export class DataService {
     this.modalMode.next(ModalModes.NONE);
 
     let temp = [
-        "{\"name\":\"Dienstbetrieb\",\"department\":{\"name\":\"Dienstbetrieb\",\"persons\":[{\"attendances\":{},\"firstName\":\"Anton\",\"lastName\":\"Brugger\",\"rank\":\"Hpt\",\"position\":\"Kommandant\"},{\"attendances\":{\"3.1\":\"K\",\"4.1\":\"K\",\"5.1\":\"K\",\"6.1\":\"K\",\"7.1\":\"K\",\"8.1\":\"K\",\"2.1\":\"K\",\"2.2\":\"K\",\"2.3\":\"K\"},\"firstName\":\"\",\"lastName\":\"Hutka\",\"rank\":\"\",\"position\":\"funk2\"},{\"attendances\":{\"5.1\":\"K\",\"6.1\":\"Anw\",\"7.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Rumpler\",\"rank\":\"\",\"position\":\"funk3\"},{\"attendances\":{\"5.1\":\"Anw\",\"6.1\":\"Anw\",\"7.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Blasl\",\"rank\":\"\",\"position\":\"funk3\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Mayer\",\"rank\":\"\",\"position\":\"funk4\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Medwenitsch\",\"rank\":\"\",\"position\":\"funk5\"},{\"attendances\":{\"4.1\":\"DZ\",\"5.1\":\"DZ\",\"6.1\":\"AE\",\"7.1\":\"Anw\",\"8.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Seidl\",\"rank\":\"\",\"position\":\"funk5\"},{\"attendances\":{\"3.1\":\"DZ\",\"4.1\":\"DZ\",\"5.1\":\"DZ\",\"6.1\":\"AE\",\"7.1\":\"Anw\",\"8.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Klenner\",\"rank\":\"\",\"position\":\"funk5\"}]}}",
+        "{\"name\":\"Dienstbetrieb\",\"department\":{\"name\":\"Dienstbetrieb\",\"persons\":[{\"attendances\":{},\"firstName\":\"Anton\",\"lastName\":\"Brugger\",\"rank\":\"Hptm\",\"position\":\"Kommandant\"},{\"attendances\":{\"3.1\":\"K\",\"4.1\":\"K\",\"5.1\":\"K\",\"6.1\":\"K\",\"7.1\":\"K\",\"8.1\":\"K\",\"2.1\":\"K\",\"2.2\":\"K\",\"2.3\":\"K\"},\"firstName\":\"\",\"lastName\":\"Hutka\",\"rank\":\"\",\"position\":\"funk2\"},{\"attendances\":{\"5.1\":\"K\",\"6.1\":\"Anw\",\"7.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Rumpler\",\"rank\":\"\",\"position\":\"funk3\"},{\"attendances\":{\"5.1\":\"Anw\",\"6.1\":\"Anw\",\"7.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Blasl\",\"rank\":\"\",\"position\":\"funk3\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Mayer\",\"rank\":\"\",\"position\":\"funk4\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Medwenitsch\",\"rank\":\"\",\"position\":\"funk5\"},{\"attendances\":{\"4.1\":\"DZ\",\"5.1\":\"DZ\",\"6.1\":\"AE\",\"7.1\":\"Anw\",\"8.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Seidl\",\"rank\":\"\",\"position\":\"funk5\"},{\"attendances\":{\"3.1\":\"DZ\",\"4.1\":\"DZ\",\"5.1\":\"DZ\",\"6.1\":\"AE\",\"7.1\":\"Anw\",\"8.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Klenner\",\"rank\":\"\",\"position\":\"funk5\"}]}}",
         "{\"name\":\"Dienstbetrieb_2\",\"department\":{\"name\":\"Dienstbetrieb_2\",\"persons\":[{\"attendances\":{\"3.1\":\"K\",\"4.1\":\"K\",\"5.1\":\"K\",\"6.1\":\"K\",\"7.1\":\"K\",\"8.1\":\"K\",\"2.1\":\"K\",\"2.2\":\"K\",\"2.3\":\"K\"},\"firstName\":\"\",\"lastName\":\"Brugger2\",\"rank\":\"\",\"position\":\"funk1\"},{\"attendances\":{\"5.1\":\"K\",\"6.1\":\"Anw\",\"7.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Hutka2\",\"rank\":\"\",\"position\":\"funk2\"},{\"attendances\":{\"5.1\":\"Anw\",\"6.1\":\"Anw\",\"7.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Rumpler2\",\"rank\":\"\",\"position\":\"funk3\"},{\"attendances\":{\"4.1\":\"DZ\",\"5.1\":\"DZ\",\"6.1\":\"AE\",\"7.1\":\"Anw\",\"8.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Medwenitsch2\",\"rank\":\"\",\"position\":\"funk5\"},{\"attendances\":{\"3.1\":\"DZ\",\"4.1\":\"DZ\",\"5.1\":\"DZ\",\"6.1\":\"AE\",\"7.1\":\"Anw\",\"8.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Seidl2\",\"rank\":\"\",\"position\":\"funk5\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Klenner2\",\"rank\":\"\",\"position\":\"funk5\"}]}}",
-        "{\"name\":\"S6\",\"department\":{\"name\":\"S6\",\"persons\":[{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Tischler\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Pointinger\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Stevic\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Vural\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"Alexander Leopold\",\"lastName\":\"Neuböck-Trpisovsky\",\"rank\":\"Rek\",\"position\":\"Cyber-Gwd\"},{\"attendances\":{},\"firstName\":\"Maximilian\",\"lastName\":\"Mayerhofer\",\"rank\":\"Gefr\",\"position\":\"Cyber-Gwd\"}]}}"
+        "{\"name\":\"S6\",\"department\":{\"name\":\"S6\",\"persons\":[{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Tischler\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Pointinger\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Stevic\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Vural\",\"rank\":\"\",\"position\":\"\"},{\"attendances\":{},\"firstName\":\"Alexander Leopold\",\"lastName\":\"Neuböck-Trpisovsky\",\"rank\":\"Rekr\",\"position\":\"Cyber-Gwd\"},{\"attendances\":{},\"firstName\":\"Maximilian\",\"lastName\":\"Mayerhofer\",\"rank\":\"Gefr\",\"position\":\"Cyber-Gwd\"}]}}"
     ];
     for (let i of temp) {
       let dep = JSON.parse(i).department as Department;
@@ -287,6 +288,27 @@ export class DataService {
 
   getArray(length: number): Array<any> {
     return new Array(length);
+  }
+
+  getRankIndex(rank: string): number {
+    for (let i = 0; i < this.ranks.length; ++i) {
+      if (this.ranks[i].short === rank || this.ranks[i].long === rank) {
+        return i;
+      }
+    }
+
+    return -1;
+  }
+
+  getRankLong(rank: string): string {
+    let idx = this.getRankIndex(rank);
+
+    if (idx !== -1) {
+      return this.ranks[idx].long;
+    }
+    else {
+      return rank;
+    }
   }
 }
 

@@ -9,17 +9,53 @@ import { DataService, ModalModes } from 'src/app/services/data.service';
 })
 export class PersonViewModalComponent implements OnInit {
 
-  @Input() person: Person = new Person("");
+  @Input() _person: Person | undefined = undefined;
   @Output() personChanged: EventEmitter<Person> = new EventEmitter<Person>();
+  get person(): Person {
+    if (this._person === undefined) {
+      return this.p;
+    }
+    else {
+      return this._person;
+    }
+  }
+  p: Person = new Person("");
+
+  newPerson: boolean = false;
+
+  rankSelectValue: string = "";
+  rankInputValue: string = "";
+
+  con = console;
 
 
-  constructor(private dataService: DataService) { }
+  constructor(public dataService: DataService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.newPerson = this._person === undefined;
+    
+    if (this.person.rank !== "") {
+      let rankIndex = this.dataService.getRankIndex(this.person.rank);
+
+      if (rankIndex === -1) {
+        this.rankSelectValue = "other";
+        this.rankInputValue = this.person.rank;
+      }
+      else {
+        this.rankSelectValue = this.dataService.ranks[rankIndex].short;
+      }
+    }
+  }
 
 
   save(): void {
     if (this.person.lastName !== '') {
+      if (this.rankSelectValue === "other") {
+        this.person.rank = this.rankInputValue;
+      }
+      else {
+        this.person.rank = this.rankSelectValue;
+      }
       this.personChanged.emit(this.person);
     }
   }

@@ -19,17 +19,19 @@ export class PersonMainModalComponent implements OnInit {
     return this.dataService.data[this.selectedPerson.departmentIndex].persons[this.selectedPerson.personIndex];
   }
 
-  constructor(public dataService: DataService) {
-    for (let i = dataService.attendanceTypes.length; i > 0; --i) {
-      this.attendanceSummary.push(0);
-    }
-  }
+  constructor(public dataService: DataService) {}
 
   ngOnInit(): void {
     this.createAttendanceSummary();
   }
 
   createAttendanceSummary() {
+    this.attendanceSummary = [];
+    
+    for (let i = this.dataService.attendanceTypes.length; i > 0; --i) {
+      this.attendanceSummary.push(0);
+    }
+
     this.attendanceLength = Object.keys(this.person.attendances).length;
 
     for (let att of Object.keys(this.person.attendances)) {
@@ -74,14 +76,16 @@ export class PersonMainModalComponent implements OnInit {
 
   prevPerson(): void {
     if (this.selectedPerson && this.selectedPerson.personIndex !== 0) {
-      this.dataService.selectedPerson = {departmentIndex: this.selectedPerson.departmentIndex, personIndex: this.selectedPerson.personIndex - 1};
+      this.selectedPerson = {departmentIndex: this.selectedPerson.departmentIndex, personIndex: this.selectedPerson.personIndex - 1};
+      this.dataService.selectedPerson = this.selectedPerson;
       this.createAttendanceSummary();
     }
   }
 
   nextPerson(): void {
     if (this.selectedPerson && this.selectedPerson.personIndex !== this.dataService.data[this.selectedPerson.departmentIndex].persons.length - 1) {
-      this.dataService.selectedPerson = {departmentIndex: this.selectedPerson.departmentIndex, personIndex: this.selectedPerson.personIndex + 1};
+      this.selectedPerson = {departmentIndex: this.selectedPerson.departmentIndex, personIndex: this.selectedPerson.personIndex + 1};
+      this.dataService.selectedPerson = this.selectedPerson;
       this.createAttendanceSummary();
     }
   }

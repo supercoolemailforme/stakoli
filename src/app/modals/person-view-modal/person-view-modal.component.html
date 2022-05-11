@@ -1,31 +1,47 @@
 <div class="modal">
-    <h3>Person hinzufügen</h3>
-    <div>
-        <span>
-            Nachname*
-        </span>
-        <input autofocus (keydown.enter)="selectNextInput($event)" [(ngModel)]="person.lastName" type="text" />
+    <h3>{{newPerson ? 'Neue Person' : 'Grunddaten'}}</h3>
+    <div class="form">
+        <div>
+            <label (click)="con.log(person)">
+                Nachname*
+            </label>
+            <input autofocus (keydown.enter)="selectNextInput($event)" [(ngModel)]="person.lastName" type="text" placeholder="Nachname" />
+        </div>
+        <div>
+            <label>
+                Vorname
+            </label>
+            <input (keydown.enter)="selectNextInput($event)" [(ngModel)]="person.firstName" type="text" placeholder="Vorname" />
+        </div>
+        <div>
+            <label>
+                Dienstgrad / Titel
+            </label>
+            <select [(ngModel)]="rankSelectValue">
+                <option value="" selected>
+                    Kein Dienstgrad
+                </option>
+                <option *ngFor="let rank of dataService.ranks" [value]="rank.short">
+                    {{rank.long}}
+                </option>
+                <option value="other">
+                    Andere Bezeichnung
+                </option>
+            </select>
+            <input *ngIf="rankSelectValue === 'other'" (keydown.enter)="selectNextInput($event)" [(ngModel)]="rankInputValue" type="text" placeholder="Rang" />
+        </div>
+        <div>
+            <label>
+                Funktion
+            </label>
+            <input (keydown.enter)="save()" [(ngModel)]="person.position" type="text" placeholder="Funktion" />
+        </div>
     </div>
-    <div>
-        <span>
-            Vorname
-        </span>
-        <input (keydown.enter)="selectNextInput($event)" [(ngModel)]="person.firstName" type="text" />
-    </div>
-    <div>
-        <span>
-            Rang
-        </span>
-        <input (keydown.enter)="selectNextInput($event)" [(ngModel)]="person.rank" type="text" />
-    </div>
-    <div>
-        <span>
-            Funktion
-        </span>
-        <input (keydown.enter)="save()" [(ngModel)]="person.position" type="text" />
-    </div>
-    <div>
-        <button (click)="save()" [disabled]="person.lastName === ''">Speichern</button>
-        <button (click)="cancel()">Abbrechen</button>
+    <span class="bottom-info">
+        * Pflichtfelder
+    </span>
+    <div class="modalButtomBtnDiv">
+        <button (click)="save()" [disabled]="person.lastName === ''" class="actionBtn positivBtn">Speichern</button>
+        <button (click)="cancel()" class="actionBtn negativBtn">Abbrechen</button>
     </div>
 </div>

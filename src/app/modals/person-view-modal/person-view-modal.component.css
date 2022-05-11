@@ -1,0 +1,35 @@
+.modal {
+    width: 400px;
+}
+
+h3 {
+    font-size: 26px;
+    text-align: center;
+    font-family: Arial;
+    margin-bottom: 60px;
+    color: #343721;
+}
+
+.form {
+    margin: 40px;
+}
+
+.form > div {
+    margin: 18px 0px;
+}
+
+.form > div > label {
+    display: block;
+    font-size: 19px;
+    margin-bottom: 3px;
+}
+
+input {
+    padding: 5px 8px;
+}
+
+.bottom-info {
+    display: block;
+    text-align: right;
+    font-style: italic;
+}

@@ -10,7 +10,7 @@ div.overallDiv {
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    animation: fadeIn 0.15s;
+    animation: fadeIn 0.2s;
 }
 
 .modal {
@@ -56,18 +56,23 @@ button {
 }
 
 .actionBtn {
-    border: #383838 3px solid;
-    background-color: white;
-    color: black;
     border-radius: 5px;
     font-weight: 600;
     font-family: Arial;
-    padding: 4px 6px;
     font-size: 16px;
     box-shadow: 2px 2px 2px #777;
     transition-duration: 0.15s;
     display: inline-flex;
     align-items: center;
+    border: none;
+    background: #2c2c30;
+    color: white;
+    padding: 8px 12px;
+    text-shadow: 1px 1px 2px #222;
+}
+
+.modalButtomBtnDiv .actionBtn {
+    margin-left: 15px;
 }
 
 .actionBtn:hover {
@@ -80,12 +85,50 @@ button {
     box-shadow: 0px 0px 1px #777;
 }
 
+.actionBtn:disabled {
+    opacity: 0.5;
+    cursor: default;
+    box-shadow: none;
+    transform: none;
+}
+
 .actionBtn.positivBtn {
-    border-color: green;
+    /*background-color: #4e5a43;*/
+    background-color: #657557;
 }
 
 .actionBtn.negativBtn {
-    background-color: #e30619;
-    border-width: 3px;
-    color: white;
+    /*background-color: #e30619;*/
+    background-color: #b30513;
+}
+
+
+
+/* Forms */
+
+input, select {
+    font-size: 17px;
+    background-color: white;
+    border-radius: 3px;
+    border-color: #666;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 1px 1px 2px #777;
+    outline: 0px;
+    transition-duration: 0.3s;
+    padding: 3px 5px;
+}
+
+input:focus, select:focus {
+    box-shadow: 2px 2px 3px #777;
+}
+
+input::placeholder {
+    font-style: italic;
+    font-size: 16px;
+    color: #bbb;
+}
+
+select + input {
+    margin-top: 10px;
 }
