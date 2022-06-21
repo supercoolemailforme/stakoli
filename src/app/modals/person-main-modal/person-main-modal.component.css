@@ -45,7 +45,7 @@
     border-radius: 6px;
     padding: 20px 65px 40px 20px;
     position: relative;
-    /*background-image: linear-gradient(to right, #626c55, #3d4a35);*/
+    background-color: #333f1f;
     background-image: url("/assets/background.svg");
     background-size: 300px;
     font-family: Arial;
@@ -136,6 +136,10 @@ h3 {
     border: 2px solid #222;
     display: inline-flex;
     border-radius: 2px;
+}
+
+.attendanceSummaries div.unimportant {
+    opacity: 0.35;
 }
 
 .attendanceSummaries div span {

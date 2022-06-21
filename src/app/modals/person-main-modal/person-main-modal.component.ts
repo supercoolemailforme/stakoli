@@ -41,7 +41,7 @@ export class PersonMainModalComponent implements OnInit {
 
 
   editPerson(): void {
-    this.dataService.editPerson = JSON.parse(JSON.stringify(this.dataService.data[this.selectedPerson.departmentIndex].persons[this.selectedPerson.personIndex]));
+    this.dataService.editPerson = Person.copyPerson(this.dataService.data[this.selectedPerson.departmentIndex].persons[this.selectedPerson.personIndex]);
     this.dataService.OnAddPersonEvent = (p: Person | undefined) => {
       this.dataService.OnAddPersonEvent = undefined;
       this.dataService.editPerson = undefined;

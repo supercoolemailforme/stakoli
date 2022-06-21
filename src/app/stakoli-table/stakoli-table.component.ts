@@ -13,13 +13,17 @@ import { DataService, ModalModes } from '../services/data.service';
 })
 export class StakoliTableComponent implements OnInit {
 
-  dataService: DataService;
   days: any[] = [];
   leapyear: boolean = false;
   weeks: {week: number, begin: Date, end: Date}[] = [];
 
+  viewType: string;
+  searchValue: string = "";
+  sortOrder: string = "name";
+
   selectedDepartmentIndex = 0;
   selectedWeek: number = 0;
+  selectedMonth: number = 0;
   todayIndex: number = -1;
 
   addDepartmentActive: boolean = false;
@@ -31,8 +35,8 @@ export class StakoliTableComponent implements OnInit {
   con = console;
   array = Array;
 
-  constructor(ds: DataService) {
-    this.dataService = ds;
+  constructor(public dataService: DataService) {
+    this.viewType = dataService.getLocalStorage("stakoliViewType", "week");
   }
 
   ngOnInit(): void {
@@ -78,16 +82,20 @@ export class StakoliTableComponent implements OnInit {
 
         if (dayObj.toDateString() === todayString) {
           this.todayIndex = this.days.length - 1;
-
-          setTimeout(() => {
-            this.selectedWeek = this.getWeek(today, this.todayIndex);
-            
-            if (this.weeks[0].week === 52) {
-              this.selectedWeek = (this.selectedWeek + 1) % 53;
-            }
-          }, 10);
+          this.selectedWeek = this.getWeek(today, this.todayIndex);
+          
+          if (this.weeks[0].week === 52) {
+            this.selectedWeek = (this.selectedWeek + 1) % 53;
+          }
         }
       }
+    }
+
+    if (this.dataService.year === new Date().getFullYear()) {
+      this.selectedMonth = new Date().getMonth();
+    }
+    else {
+      this.selectedMonth = 0;
     }
   }
 
@@ -99,8 +107,12 @@ export class StakoliTableComponent implements OnInit {
     return week;
   }
 
-  setSelectedWeek(event: Event) {
+  setSelectedWeek(event: Event): void {
     this.selectedWeek = (event.target as HTMLSelectElement).selectedIndex;
+  }
+
+  setSelectedMonth(event: Event): void {
+    this.selectedMonth = (event.target as HTMLSelectElement).selectedIndex;
   }
 
   getSelectedWeek(): Date[] {
@@ -117,6 +129,23 @@ export class StakoliTableComponent implements OnInit {
     }
 
     return weekArray;
+  }
+
+  getSelectedMonth(): Date[] {
+    let monthArray: Date[] = [];
+    let wasOnce: boolean = false;
+
+    for (let i = (this.selectedMonth * 29); i < this.days.length ; ++i) {
+      if (this.days[i].getMonth() === this.selectedMonth) {
+        wasOnce = true;
+        monthArray.push(this.days[i]);
+      }
+      else if(wasOnce) {
+        break;
+      }
+    }
+
+    return monthArray;
   }
 
   addDepartment() {
@@ -187,6 +216,116 @@ export class StakoliTableComponent implements OnInit {
   editPerson(index: number) {
     this.dataService.selectedPerson = {departmentIndex: this.selectedDepartmentIndex, personIndex: index};
     this.dataService.modalMode.next(ModalModes.PERSON_MAIN);
+  }
+
+  newDate(year: number, month: number = 0, day: number = 1): Date {
+    return new Date(year, month, day);
+  }
+
+  changeViewType() {
+    window.localStorage.setItem("stakoliViewType", this.viewType);
+  }
+
+  matchesSearchQuery(person: Person): boolean {
+    if (this.searchValue === "") {
+      return true;
+    }
+
+    for (let word of this.searchValue.split(" ")) {
+      word = word.toLocaleLowerCase();
+
+      if (! (person.lastName.toLocaleLowerCase().includes(word)
+          || person.firstName.toLocaleLowerCase().includes(word)
+          || person.rank.includes(word)
+          || this.dataService.getRankLong(person.rank).toLocaleLowerCase().includes(word)
+          || person.position.toLocaleLowerCase().includes(word)))
+        {
+          return false;
+        }
+    }
+
+    return true;
+  }
+
+
+
+  sortedNamesList: Person[] = [];
+  sortedFunctionsList: Person[] = [];
+  prevNameSum = 0;
+  prevFunctionSum = 0;
+
+  getPersons(): Person[] {
+    switch (this.sortOrder) {
+      case "name":
+        return this.sortNames();
+      case "name desc":
+        return this.sortNames().reverse();
+      case "function":
+        return this.sortFunctions();
+      case "added":
+        return this.dataService.data[this.selectedDepartmentIndex].persons;
+      default:
+        return this.dataService.data[this.selectedDepartmentIndex].persons;
+    }
+  }
+
+  sortFunctions(): Person[] {
+    if (this.prevFunctionSum !== this.dataService.data[this.selectedDepartmentIndex].getDepartmentNamesHash()) {
+      this.prevFunctionSum = this.dataService.data[this.selectedDepartmentIndex].getDepartmentNamesHash();
+      this.sortedFunctionsList = [];
+
+      for (let pers of this.dataService.data[this.selectedDepartmentIndex].persons) {
+        this.sortedFunctionsList.push(pers);
+      }
+      
+      this.sortedFunctionsList.sort(
+        (a: Person, b: Person) => {
+          if (a.position.toLocaleLowerCase() > b.position.toLocaleLowerCase()) {
+            return 1;
+          }
+          else if (a.position.toLocaleLowerCase() < b.position.toLocaleLowerCase()) {
+            return -1;
+          }
+          else {
+            return 0;
+          }
+        }
+      );
+    }
+
+    return this.sortedFunctionsList;
+  }
+
+  sortNames(): Person[] {
+    if (this.prevNameSum !== this.dataService.data[this.selectedDepartmentIndex].getDepartmentNamesHash()) {
+      console.log("reload");
+      this.prevNameSum = this.dataService.data[this.selectedDepartmentIndex].getDepartmentNamesHash();
+      this.sortedNamesList = [];
+
+      for (let pers of this.dataService.data[this.selectedDepartmentIndex].persons) {
+        this.sortedNamesList.push(pers);
+      }
+      
+      this.sortedNamesList.sort(
+        (a: Person, b: Person) => {
+          if (a.getFullNameString().toLocaleLowerCase() > b.getFullNameString().toLocaleLowerCase()) {
+            return 1;
+          }
+          else if (a.getFullNameString().toLocaleLowerCase() < b.getFullNameString().toLocaleLowerCase()) {
+            return -1;
+          }
+          else {
+            return 0;
+          }
+        }
+      );
+    }
+    
+    return this.sortedNamesList;
+  }
+
+  getPersonIndex(person: Person): number {
+    return this.dataService.data[this.selectedDepartmentIndex].persons.indexOf(person, undefined);
   }
 
 }

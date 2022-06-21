@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Department } from 'src/app/data-models/department';
+import { Department, Person } from 'src/app/data-models/department';
 import { DataService, ModalModes } from 'src/app/services/data.service';
 
 @Component({
@@ -9,21 +9,24 @@ import { DataService, ModalModes } from 'src/app/services/data.service';
 })
 export class ReadOldExcelModalComponent implements OnInit {
 
-  dataService: DataService;
   sheetCheck: boolean[] = [];
 
   yearMissmatch: boolean = false;
   selectedYear: number = NaN;
 
+  errorMessages: any = {"no days found": "Es konnte kein Datum gefunden werden. Wenn es sich bei dieser Tabelle um eine Tabelle ohne Personen- und Anwesenheits-Informationen handelt können sie diesen Fehler ignorieren. Dies trifft zum Beispiel auf Zusammenfassungen anderer Tabellen zu.",
+                        "header unreadable": "Es konnte keinen Spalten für Personendaten gefunden werden. Wenn es sich bei dieser Tabelle um eine Tabelle ohne Personen- und Anwesenheits-Informationen handelt können sie diesen Fehler ignorieren. Dies trifft zum Beispiel auf Zusammenfassungen anderer Tabellen zu.",
+                        "person undetectable": "Es wurde eine Person gefunden, für die kein Nachname eingetragen wurde oder das Ende der Personenliste ist nicht ausreichend gekennzeichnet."};
+
   isNan = isNaN;
+  Number = Number;
 
 
 
-  constructor(data: DataService) {
-    this.dataService = data;
-  }
+  constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
+    //console.log(JSON.stringify(this.dataService.foundSheetsList))
     for (let dataSet of this.dataService.foundSheetsList) {
       if (dataSet.error || isNaN(dataSet.obj.year)) {
         continue;
@@ -50,6 +53,18 @@ export class ReadOldExcelModalComponent implements OnInit {
     else {
       for (let dataSet of this.dataService.foundSheetsList) {
         this.sheetCheck.push(dataSet.error === undefined);
+      }
+    }
+
+    for (let sheet of this.dataService.foundSheetsList) {
+      if (sheet.obj) {
+        let cnt = 0;
+        
+        for (let person of sheet.obj.department.persons) {
+          cnt += person.getAttendanceLength();
+        }
+  
+        sheet.datasetCnt = cnt;
       }
     }
   }
@@ -89,8 +104,30 @@ export class ReadOldExcelModalComponent implements OnInit {
     return Number.parseInt(value.toString().replace(/[^0-9]/g, ""));
   }
 
-  close() {
+  close(): void {
     this.dataService.modalMode.next(ModalModes.NONE);
+  }
+
+  getCheckedSheetCnt(): number {
+    let cnt = 0;
+
+    for (let sheetBool of this.sheetCheck) {
+      if (sheetBool) {
+        ++cnt;
+      }
+    }
+
+    return cnt;
+  }
+
+  getErrorMessage(error: string): string {
+    console.log(error);
+    if (this.errorMessages[error] === undefined) {
+      return "Unbekannter Fehler";
+    }
+    else {
+      return this.errorMessages[error];
+    }
   }
 
 }

@@ -1,0 +1,163 @@
+.modal {
+    min-width: 500px;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 20px 100px 20px;
+}
+
+.sheet {
+    border: 1px solid #888;
+    box-shadow: 3px 3px 5px #999;
+    border-radius: 4px;
+    margin-bottom: 30px;
+}
+
+.topSheetDiv {
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 40px;
+    background-color: #4e5a43;
+}
+
+.topSheetDiv div {
+    display: flex;
+}
+
+.errorSvg {
+    height: 23px;
+    width: auto;
+    margin-right: 5px;
+    display: none;
+    animation: blink;
+    animation-duration: 2.5s;
+    animation-iteration-count: infinite;
+}
+
+.sheet.error .errorSvg{
+    display: inline;
+    color: red;
+}
+
+.topSheetDiv h3 {
+    display: inline;
+    margin: 0px;
+    font-size: 20px;
+    font-family: Arial;
+    color: white;
+    text-shadow: 1px 1px 2px #222;
+}
+
+.sheetBodyDiv {
+    padding: 20px 20px;
+}
+
+.content {
+    overflow-y: scroll;
+    padding: 0px 35px;
+    margin-bottom: 40px;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+.switch {
+    height: 20px;
+    width: 40px;
+    position: relative;
+    background-color: #b30513;
+    transition-duration: 0.25s;
+    cursor: pointer;
+    box-shadow: 1px 1px 2px #333;
+    border-radius: 10px;
+}
+
+.switch div {
+    height: 16px;
+    width: 16px;
+    margin: 2px;
+    position: absolute;
+    background-color: white;
+    left: 0px;
+    transition-duration: inherit;
+    border-radius: 10px;
+}
+
+input[type="checkbox"]:checked + label .switch {
+    background-color: #6a8745;
+}
+
+input[type="checkbox"]:checked + label .switch div {
+    left: 20px;
+}
+
+input[type="checkbox"]:disabled + label .switch {
+    opacity: 0.25;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.selectYearDiv {
+    text-align: right;
+    padding-right: 30px;
+}
+
+.selectYearDiv span {
+    font-size: 20px;
+    margin-right: 15px;
+}
+
+.selectYearDiv input {
+    width: 70px;
+}
+
+.sheetBodyDiv > div {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 50px;
+}
+
+.sheetBodyDiv > div > div {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.sheetBodyDiv svg {
+    height: 25px;
+}
+
+.noYear {
+    color: #b30513;
+}
+
+.yearMissmatch {
+    max-width: 350px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 18px;
+    margin: 0px 30px 20px 30px;
+}
+
+.yearMissmatch svg {
+    height: 40px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    animation-name: blink;
+    animation-duration: 2.5s;
+    animation-iteration-count: infinite;
+    color: #dfae53;
+}
+
+.sheetBodyDiv > div.errorMessage {
+    color: red;
+    display: inline;
+}
+
+.errorMessage span {
+    max-width: 350px;
+    display: block;
+}

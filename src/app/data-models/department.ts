@@ -10,6 +10,16 @@ export class Department {
     addPerson(pers: Person): void {
         this.persons.push(pers);
     }
+
+    getDepartmentNamesHash(): number {
+        let sum = 0;
+        
+        for (let i = 0; i < this.persons.length; ++i) {
+            sum += this.persons[i].getNameHash() + i;
+        }
+
+        return sum;
+    }
 }
 
 export class Person {
@@ -26,4 +36,27 @@ export class Person {
         this.position = position;
         this.attendances = attendances;
     };
+
+    getAttendanceLength(): number {
+        return Object.keys(this.attendances).length;
+    }
+
+    getFullNameString(): string {
+        return this.lastName + " " + this.firstName + ", " + this.rank;
+    }
+
+    getNameHash(): number {
+        let sum: number = 0;
+        let fullName: string = this.getFullNameString() + " " + this.position;
+
+        for (let i = 0; i < fullName.length; ++i) {
+            sum += fullName.charCodeAt(i) + i;
+        }
+
+        return sum;
+    }
+
+    static copyPerson(person: Person): Person {
+      return new Person(person.lastName, person.position, person.rank, person.firstName, person.attendances);
+    }
 }

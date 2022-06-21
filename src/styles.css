@@ -11,6 +11,7 @@ div.overallDiv {
     justify-content: center;
     z-index: 1000;
     animation: fadeIn 0.2s;
+    overflow-y: auto;
 }
 
 .modal {
@@ -19,11 +20,16 @@ div.overallDiv {
     border-radius: 3px;
     box-shadow: 5px 5px 8px #444;
     min-height: 300px;
+    max-height: 75vh;
     position: relative;
 }
 
 button {
     cursor: pointer;
+}
+
+button:disabled {
+    cursor: inherit;
 }
 
 @keyframes fadeIn {
@@ -32,13 +38,13 @@ button {
     }
 
     100% {
-        opacity: 100;
+        opacity: 1;
     }
 }
 
 @keyframes fadeOut {
     0% {
-        opacity: 100;
+        opacity: 1;
     }
 
     100% {
@@ -46,7 +52,28 @@ button {
     }
 }
 
-.modalButtomBtnDiv {
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    60% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+
+.modalBottomBtnDiv {
     display: flex;
     justify-content: right;
     padding: 0px 20px;
@@ -71,7 +98,7 @@ button {
     text-shadow: 1px 1px 2px #222;
 }
 
-.modalButtomBtnDiv .actionBtn {
+.modalBottomBtnDiv .actionBtn {
     margin-left: 15px;
 }
 
@@ -87,7 +114,7 @@ button {
 
 .actionBtn:disabled {
     opacity: 0.5;
-    cursor: default;
+    cursor: inherit;
     box-shadow: none;
     transform: none;
 }

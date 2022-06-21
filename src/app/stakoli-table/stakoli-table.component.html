@@ -1,12 +1,27 @@
-<button [disabled]="selectedWeek === 0" (click)="selectedWeek !== 0 ? selectedWeek = selectedWeek - 1 : ''">&#171;</button>
-<select [selectedIndex]="selectedWeek" (change)="setSelectedWeek($event)">
-    <option *ngFor="let week of weeks">
-        {{week.week + 1 + ' (' + week.begin.toLocaleDateString('de', {day: 'numeric', month: 'numeric'}) + ' - ' + week.end.toLocaleDateString('de', {day: 'numeric', month: 'numeric'}) + ')'}}
-    </option>
+<span>Ansicht</span>
+<select [(ngModel)]="viewType" (change)="changeViewType()">
+    <option value="week">Wochenansicht</option>
+    <option value="month">Monatsansicht</option>
 </select>
-<button [disabled]="selectedWeek === weeks.length - 1" (click)="selectedWeek !== weeks.length - 1 ? selectedWeek = selectedWeek + 1 : ''">&#187;</button>
-
-<!--button (click)="year = year - 1; calcYear()">prev</button--><div>{{dataService.year}}</div><!--button (click)="year = year + 1; calcYear()">next</button-->
+<div *ngIf="viewType === 'week'">
+    <button [disabled]="selectedWeek === 0" (click)="selectedWeek !== 0 ? selectedWeek = selectedWeek - 1 : ''">&#171;</button>
+    <select [ngModel]="selectedWeek" (change)="setSelectedWeek($event)">
+        <option *ngFor="let week of weeks; let i = index" [value]="i">
+            {{week.week + 1 + ' (' + week.begin.toLocaleDateString('de', {day: 'numeric', month: 'numeric'}) + ' - ' + week.end.toLocaleDateString('de', {day: 'numeric', month: 'numeric'}) + ')'}}
+        </option>
+    </select>
+    <button [disabled]="selectedWeek === weeks.length - 1" (click)="selectedWeek !== weeks.length - 1 ? selectedWeek = selectedWeek + 1 : ''">&#187;</button>    
+</div>
+<div *ngIf="viewType === 'month'">
+    <button [disabled]="selectedMonth === 0" (click)="selectedMonth !== 0 ? selectedMonth = selectedMonth - 1 : ''">&#171;</button>
+    <select [(ngModel)]="selectedMonth" (change)="setSelectedMonth($event)">
+        <option [value]="month" *ngFor="let useless of dataService.getArray(12); let month = index">
+            {{newDate(dataService.year, month).toLocaleDateString('de', {month: 'long'})}}
+        </option>
+    </select>
+    <button [disabled]="selectedMonth === 11" (click)="selectedMonth !== 11 ? selectedMonth = selectedMonth + 1 : ''">&#187;</button>    
+</div>
+<button (click)="dataService.year = dataService.year - 1; calcYear()">prev</button><div>{{dataService.year}}</div><button (click)="dataService.year = dataService.year + 1; calcYear()">next</button>
 
 <div>
     <ng-container *ngFor="let dep of dataService.data; let i = index">
@@ -26,50 +41,62 @@
 <div>
     <button (click)="deleteDepartment()">Abteilung löschen</button>
 </div>
+<span>Sortieren nach: </span>
+<select [(ngModel)]="sortOrder">
+    <option value="name">Name aufsteigend</option>
+    <option value="name desc">Name absteigend</option>
+    <option value="function">Funktion</option>
+    <option value="added">Wie hinzugefügt</option>
+</select>
+<span>Suche:</span>
+<input type="text" [(ngModel)]="searchValue" placeholder="Suche..." />
 
 <table *ngIf="dataService.data.length !== 0">
     <thead>
         <td></td>
         <td></td>
-        <ng-container *ngIf="weeks[selectedWeek].begin.getDate() === 1 && weeks[selectedWeek].begin.getMonth() === 0">
+        <ng-container *ngIf="viewType === 'week' && weeks[selectedWeek].begin.getDate() === 1 && weeks[selectedWeek].begin.getMonth() === 0">
             <td class="dayTableDiv" *ngFor="let useless of dataService.getArray(6 - (weeks[0].end.getTime() - weeks[0].begin.getTime()) / (60 * 60 * 24 * 1000))">
                 Frei
             </td>
         </ng-container>
         <ng-container *ngFor="let day of days; let i = index">
-            <td class="dayTableDiv" *ngIf="day >= weeks[selectedWeek].begin && day <= weeks[selectedWeek].end" [style.background]="i === todayIndex ? 'blue' : ''">
+            <td class="dayTableDiv" *ngIf="(viewType === 'week' && day >= weeks[selectedWeek].begin && day <= weeks[selectedWeek].end) || (viewType === 'month' && day.getMonth() === selectedMonth)" [style.background]="i === todayIndex ? 'blue' : ''">
+                <div *ngIf="viewType === 'month' && (day.getDate() === 1 || day.getDay() === 1)">{{getWeek(day, i) + 1}}</div>
                 <div>{{day.toLocaleDateString('de', {weekday: 'short'})}}</div>
                 <span>{{day.toLocaleDateString('de', {day: 'numeric', month: 'numeric'})}}</span>
             </td>
         </ng-container>
-        <ng-container *ngIf="weeks[selectedWeek].end.getDate() === 31 && weeks[selectedWeek].end.getMonth() === 11">
+        <ng-container *ngIf="viewType === 'week' && weeks[selectedWeek].end.getDate() === 31 && weeks[selectedWeek].end.getMonth() === 11">
             <td class="dayTableDiv" *ngFor="let useless of dataService.getArray(6 - (weeks[selectedWeek].end.getTime() - weeks[selectedWeek].begin.getTime()) / (60 * 60 * 24 * 1000))">
                 Frei
             </td>
         </ng-container>
     </thead>
-    <tr *ngFor="let person of dataService.data[selectedDepartmentIndex].persons; let i = index">
-        <td>
-            {{person.position}}
-        </td>
-        <td>
-            <button class="nameBtn" (click)="editPerson(i)">
-                {{person.lastName + " " + person.firstName + (person.rank ? ", " + person.rank : '')}}
-            </button>
-        </td>
-        <ng-container *ngIf="weeks[selectedWeek].begin.getDate() === 1 && weeks[selectedWeek].begin.getMonth() === 0">
-            <td class="dayTableDiv" *ngFor="let useless of dataService.getArray(6 - (weeks[0].end.getTime() - weeks[0].begin.getTime()) / (60 * 60 * 24 * 1000))">
-                /
+    <tr *ngFor="let person of getPersons(); let i = index">
+        <ng-container *ngIf="matchesSearchQuery(person)">
+            <td>
+                {{person.position}}
             </td>
+            <td>
+                <button class="nameBtn" (click)="editPerson(getPersonIndex(person))">
+                    {{person.lastName + " " + person.firstName + (person.rank ? ", " + person.rank : '')}}
+                </button>
+            </td>
+            <ng-container *ngIf="viewType === 'week' && weeks[selectedWeek].begin.getDate() === 1 && weeks[selectedWeek].begin.getMonth() === 0">
+                <td class="dayTableDiv" *ngFor="let useless of dataService.getArray(6 - (weeks[0].end.getTime() - weeks[0].begin.getTime()) / (60 * 60 * 24 * 1000))">
+                    /
+                </td>
+            </ng-container>
+            <td *ngFor="let day of (viewType === 'week' ? getSelectedWeek() : getSelectedMonth())">
+                <app-attendance-picker [(value)]="person.attendances[day.getDate().toString() + '.' + (day.getMonth() + 1).toString()]"></app-attendance-picker>
+            </td>
+            <ng-container *ngIf="viewType === 'week' && weeks[selectedWeek].end.getDate() === 31 && weeks[selectedWeek].end.getMonth() === 11">
+                <td class="dayTableDiv" *ngFor="let useless of dataService.getArray(6 - (weeks[selectedWeek].end.getTime() - weeks[selectedWeek].begin.getTime()) / (60 * 60 * 24 * 1000))">
+                    /
+                </td>
+            </ng-container> 
         </ng-container>
-        <td *ngFor="let day of getSelectedWeek()">
-            <app-attendance-picker [(value)]="person.attendances[day.getDate().toString() + '.' + (day.getMonth() + 1).toString()]"></app-attendance-picker>
-        </td>
-        <ng-container *ngIf="weeks[selectedWeek].end.getDate() === 31 && weeks[selectedWeek].end.getMonth() === 11">
-            <td class="dayTableDiv" *ngFor="let useless of dataService.getArray(6 - (weeks[selectedWeek].end.getTime() - weeks[selectedWeek].begin.getTime()) / (60 * 60 * 24 * 1000))">
-                /
-            </td>
-        </ng-container> 
     </tr>
 </table>
 <button (click)="addPerson()">

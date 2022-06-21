@@ -1,20 +1,83 @@
 <div class="modal">
-    <div *ngFor="let sheet of dataService.foundSheetsList; let i = index">
-        <b>{{sheet.name}} </b>
-        <input type="checkbox" [(ngModel)]="sheetCheck[i]" [disabled]="sheet.error !== undefined" />
-        <div>
-            <div style="color: red" *ngIf="sheet.error !== undefined">{{sheet.error}}</div>
-            <ng-container *ngIf="sheet.error === undefined">
-                <div>{{sheet.obj.department.persons.length}} Personen eingelesen</div>
-                <div>{{sheet.obj.daysCount}} Tage eingelesen</div>
-                <div [style.color]="isNan(sheet.obj.year) ? 'orange' : 'inherit'">{{isNan(sheet.obj.year) ? 'Kein Jahr erkannt' : sheet.obj.year}}</div>
-            </ng-container>
+    <div class="content">
+        <div *ngFor="let sheet of dataService.foundSheetsList; let i = index" class="sheet" [class.error]="sheet.error !== undefined">
+            <div class="topSheetDiv">
+                <div>
+                    <svg viewBox="0 0 24 24" class="errorSvg">
+                        <path fill="currentColor" d="M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                    </svg>
+                    <h3>{{sheet.name}} </h3>
+                </div>
+                <input type="checkbox" [id]="'checkbox_' + i" [(ngModel)]="sheetCheck[i]" [disabled]="sheet.error !== undefined" />
+                <label [for]="'checkbox_' + i">
+                    <div class="switch">
+                        <div></div>
+                    </div>
+                </label>
+            </div>
+            <div class="sheetBodyDiv">
+                <div *ngIf="sheet.error !== undefined" class="errorMessage">
+                    <span>{{getErrorMessage(sheet.error.message)}}</span>
+                    <span *ngIf="sheet.error.row || sheet.error.column">
+                        Der Fehler befindet sich bei:
+                        {{sheet.error.row ? "Zeile: " + sheet.error.row : ''}}
+                        {{sheet.error.row && sheet.error.column ? " , " : ""}}
+                        {{sheet.error.column ? "Spalte: " + (sheet.error.column + 1) : ''}}
+                    </span>
+                </div>
+                <div *ngIf="sheet.error === undefined">
+                    <div>
+                        <svg viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M21.1,12.5L22.5,13.91L15.97,20.5L12.5,17L13.9,15.59L15.97,17.67L21.1,12.5M10,17L13,20H3V18C3,15.79 6.58,14 11,14L12.89,14.11L10,17M11,4A4,4 0 0,1 15,8A4,4 0 0,1 11,12A4,4 0 0,1 7,8A4,4 0 0,1 11,4Z" />
+                        </svg>
+                        {{sheet.obj.department.persons.length}} Personen
+                    </div>
+                    <div>
+                        <svg viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M7,10H12V15H7M19,19H5V8H19M19,3H18V1H16V3H8V1H6V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3Z" />
+                        </svg>
+                        {{sheet.obj.daysCount}} Tage erkannt
+                    </div>
+                    <div>
+                        <svg viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M20.7,7C20.4,7.4 20,7.7 20,8C20,8.3 20.3,8.6 20.6,9C21.1,9.5 21.6,9.9 21.5,10.4C21.5,10.9 21,11.4 20.5,11.9L16.4,16L15,14.7L19.2,10.5L18.2,9.5L16.8,10.9L13,7.1L17,3.3C17.4,2.9 18,2.9 18.4,3.3L20.7,5.6C21.1,6 21.1,6.7 20.7,7M3,17.2L12.6,7.6L16.3,11.4L6.8,21H3V17.2M7,2V5H10V7H7V10H5V7H2V5H5V2H7Z" />
+                        </svg>
+                        {{sheet.datasetCnt}} Einträge
+                    </div>
+                    <div [class.noYear]="isNan(sheet.obj.year)">
+                        <ng-container *ngIf="!isNan(sheet.obj.year)">
+                            <svg viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M21,17V8H7V17H21M21,3A2,2 0 0,1 23,5V17A2,2 0 0,1 21,19H7C5.89,19 5,18.1 5,17V5A2,2 0 0,1 7,3H8V1H10V3H18V1H20V3H21M17.53,11.06L13.09,15.5L10.41,12.82L11.47,11.76L13.09,13.38L16.47,10L17.53,11.06M3,21H17V23H3C1.89,23 1,22.1 1,21V9H3V21Z" />
+                            </svg>
+                            <span>{{sheet.obj.year}}</span>
+                        </ng-container>
+                        <ng-container *ngIf="isNan(sheet.obj.year)">
+                            <svg viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M19,19H5V8H19M19,3H18V1H16V3H8V1H6V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M9.31,17L11.75,14.56L14.19,17L15.25,15.94L12.81,13.5L15.25,11.06L14.19,10L11.75,12.44L9.31,10L8.25,11.06L10.69,13.5L8.25,15.94L9.31,17Z" />
+                            </svg>
+                            <span>Kein Jahr erkannt</span>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div>
-        <span *ngIf="yearMissmatch" style="color: rgb(189, 189, 23)">Jahre stimmen nicht überein</span>
+    <div *ngIf="yearMissmatch" class="yearMissmatch">
+        <svg viewBox="0 0 24 24">
+            <path fill="currentColor" d="M6 1V3H5C3.89 3 3 3.89 3 5V19C3 20.11 3.9 21 5 21H19C20.11 21 21 20.11 21 19V5C21 3.9 20.11 3 19 3H18V1H16V3H8V1H6M5 8H19V19H5V7M11 9V14H13V9H11M11 16V18H13V16H11Z" />
+        </svg>
+        <span>Die angegebenen Jahre stimmen nicht überein. Bitte manuell überprüfen und gegebenenfalls Tabellen mit anderen Jahren nicht einlesen</span>
     </div>
-    <input type="number" pattern="%d" [(ngModel)]="selectedYear" (input)="onYearChanged($event)" min="1900" max="4000" />
-    <button (click)="applyData()">Änderungen Anwenden</button>
-    <button (click)="close()">Abbrechen</button>
+    <div class="selectYearDiv">
+        <span>Jahr:</span>
+        <input type="number" pattern="%d" [(ngModel)]="selectedYear" (input)="onYearChanged($event)" min="1900" max="4000" />
+    </div>
+    <div class="modalBottomBtnDiv">
+        <button (click)="applyData()" class="actionBtn positivBtn" [disabled]="getCheckedSheetCnt() === 0">
+            {{getCheckedSheetCnt()}} Tabelle
+            <span [style.opacity]="getCheckedSheetCnt() !== 1 ? '1' : '0'">n&nbsp;</span>
+            einlesen
+        </button>
+        <button (click)="close()" class="actionBtn negativBtn">Abbrechen</button>
+    </div>
 </div>

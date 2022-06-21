@@ -39,7 +39,7 @@
             <div class="site" *ngIf="selectedSiteIndex === 0" class="summary">
                 <h4>{{attendanceLength}} Einträge</h4>
                 <div class="attendanceSummaries">
-                    <div *ngFor="let att of attendanceSummary; let i = index">
+                    <div *ngFor="let att of attendanceSummary; let i = index" [class.unimportant]="att === 0">
                         <span>{{dataService.attendanceTypes[i]}}</span>
                         <span>{{att}}</span>
                     </div>
@@ -59,7 +59,7 @@
                 </select>
             </div>
         </div>
-        <div class="modalButtomBtnDiv">
+        <div class="modalBottomBtnDiv">
             <button (click)="cancel()" class="actionBtn">Schließen</button>
         </div>
     </div>

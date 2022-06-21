@@ -33,7 +33,7 @@ export class PersonViewModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.newPerson = this._person === undefined;
-    
+
     if (this.person.rank !== "") {
       let rankIndex = this.dataService.getRankIndex(this.person.rank);
 

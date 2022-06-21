@@ -5,6 +5,7 @@ import { Department, Person } from '../data-models/department';
 import { Integer } from 'read-excel-file/types';
 import { EventHandlerVars } from '@angular/compiler/src/compiler_util/expression_converter';
 import { EventManager } from '@angular/platform-browser';
+import { setUncaughtExceptionCaptureCallback } from 'process';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,15 @@ export class DataService {
                     ]};*/
   data: Department[] = [];
   attendanceTypes: string[] = ['K', 'Anw', 'DZ', 'AE', 'P', 'DR', 'ADR', '---', 'A'];
-  ranks: {long: string, short: string}[] = [{long: "Rekrut", short: "Rekr"}, {long: "Gefreiter", short: "Gfr"}, {long: "Korporal", short: "Kpl"}, {long: "Zugsführer", short: "Zgf"}, {long: "Wachtmeister", short: "Wm"}, {long: "Oberwachtmeister", short: "OWm"}, {long: "Stabswachtmeister", short: "StWm"}, {long: "Oberstabswachtmeister", short: "OStWm"}, {long: "Offiziersstellvertreter", short: "OStv"}, {long: "Vizeleutnant", short: "Vzlt"}, {long: "Fähnrich", short: "Fhr"}, {long: "Leutnant", short: "Lt"}, {long: "Oberleutnant", short: "Olt"}, {long: "Hauptmann", short: "Hptm"}, {long: "Major", short: "Mjr"}, {long: "Oberstleutnant", short: "Obstlt"}, {long: "Oberst", short: "Obst"}, {long: "Brigadier", short: "Bgdr"}, {long: "Generalmajor", short: "GenMjr"}, {long: "Generalleutnant", short: "GenLt"}, {long: "General", short: "Gen"}];
-  year: number = 2021;
+  ranksRekrut: {long: string, short: string}[] = [{long: "Rekrut", short: "Rekr"}];
+  ranksChargen: {long: string, short: string}[] = [{long: "Gefreiter", short: "Gfr"}, {long: "Korporal", short: "Kpl"}, {long: "Zugsführer", short: "Zgf"}];
+  ranksUO: {long: string, short: string}[] = [{long: "Wachtmeister", short: "Wm"}, {long: "Oberwachtmeister", short: "OWm"}, {long: "Stabswachtmeister", short: "StWm"}, {long: "Oberstabswachtmeister", short: "OStWm"}, {long: "Offiziersstellvertreter", short: "OStv"}, {long: "Vizeleutnant", short: "Vzlt"}];
+  ranksOffizier: {long: string, short: string}[] = [{long: "Fähnrich", short: "Fhr"}, {long: "Leutnant", short: "Lt"}, {long: "Oberleutnant", short: "Olt"}, {long: "Hauptmann", short: "Hptm"}, {long: "Major", short: "Mjr"}, {long: "Oberstleutnant", short: "Obstlt"}, {long: "Oberst", short: "Obst"}, {long: "Brigadier", short: "Bgdr"}, {long: "Generalmajor", short: "GenMjr"}, {long: "Generalleutnant", short: "GenLt"}, {long: "General", short: "Gen"}];
+
+  get ranks(): {long: string, short: string}[] {
+    return [...this.ranksRekrut, ...this.ranksChargen, ...this.ranksUO, ...this.ranksOffizier];
+  }
+  year: number = 2022;
 
   OnNewDataApplied: EventEmitter<string> = new EventEmitter<string>();
 
@@ -51,6 +59,28 @@ export class DataService {
     this.loadingActive.next(true);
     this.modalMode.next(ModalModes.NONE);
 
+    this.foundSheetsList = JSON.parse('[{"name":"Dienstbetrieb","obj":{"department":{"name":"Dienstbetrieb","persons":[{"attendances":{},"firstName":"","lastName":"Brugger","rank":"","position":"funk1"},{"attendances":{"3.1":"K","4.1":"K","5.1":"K","6.1":"K","7.1":"K","8.1":"K","2.1":"K","2.2":"K","2.3":"K"},"firstName":"","lastName":"Hutka","rank":"","position":"funk2"},{"attendances":{"5.1":"K","6.1":"Anw","7.1":"Anw"},"firstName":"","lastName":"Rumpler","rank":"","position":"funk3"},{"attendances":{"5.1":"Anw","6.1":"Anw","7.1":"Anw"},"firstName":"","lastName":"Blasl","rank":"","position":"funk3"},{"attendances":{},"firstName":"","lastName":"Mayer","rank":"","position":"funk4"},{"attendances":{},"firstName":"","lastName":"Medwenitsch","rank":"","position":"funk5"},{"attendances":{"4.1":"DZ","5.1":"DZ","6.1":"AE","7.1":"Anw","8.1":"Anw"},"firstName":"","lastName":"Seidl","rank":"","position":"funk5"},{"attendances":{"3.1":"DZ","4.1":"DZ","5.1":"DZ","6.1":"AE","7.1":"Anw","8.1":"Anw"},"firstName":"","lastName":"Klenner","rank":"","position":"funk5"}]},"year":2021,"attendanceTypes":["K","Anw","DZ","AE"],"daysCount":9}},{"name":"Dienstbetrieb_2","obj":{"department":{"name":"Dienstbetrieb_2","persons":[{"attendances":{"3.1":"K","4.1":"K","5.1":"K","6.1":"K","7.1":"K","8.1":"K","2.1":"K","2.2":"K","2.3":"K"},"firstName":"","lastName":"Brugger2","rank":"","position":"funk1"},{"attendances":{"5.1":"K","6.1":"Anw","7.1":"Anw"},"firstName":"","lastName":"Hutka2","rank":"","position":"funk2"},{"attendances":{"5.1":"Anw","6.1":"Anw","7.1":"Anw"},"firstName":"","lastName":"Rumpler2","rank":"","position":"funk3"},{"attendances":{"4.1":"DZ","5.1":"DZ","6.1":"AE","7.1":"Anw","8.1":"Anw"},"firstName":"","lastName":"Medwenitsch2","rank":"","position":"funk5"},{"attendances":{"3.1":"DZ","4.1":"DZ","5.1":"DZ","6.1":"AE","7.1":"Anw","8.1":"Anw"},"firstName":"","lastName":"Seidl2","rank":"","position":"funk5"},{"attendances":{},"firstName":"","lastName":"Klenner2","rank":"","position":"funk5"}]},"year":null,"attendanceTypes":["K","Anw","DZ","AE"],"daysCount":9}},{"name":"S6","obj":{"department":{"name":"S6","persons":[{"attendances":{},"firstName":"","lastName":"Tischler","rank":"","position":""},{"attendances":{},"firstName":"","lastName":"Pointinger","rank":"","position":""},{"attendances":{},"firstName":"","lastName":"Stevic","rank":"","position":""},{"attendances":{},"firstName":"","lastName":"Vural","rank":"","position":""},{"attendances":{},"firstName":"","lastName":"Neuböck","rank":"","position":""},{"attendances":{},"firstName":"","lastName":"Mayerhofer","rank":"","position":""}]},"year":2022,"attendanceTypes":["Anw","P","DR","ADR","---","A"],"daysCount":10}},{"name":"Gesammt","error":{"message": "header unreadable"}}]');
+
+    for (let sheet of this.foundSheetsList) {
+      if (!sheet.obj) {
+        continue;
+      }
+
+      if (sheet.obj.year === null) {
+        sheet.obj.year = NaN;
+      }
+
+      let p: Person[] = [];
+      
+      console.log(sheet);
+
+      for (let person of sheet.obj.department.persons) {
+        p.push(new Person(person.lastName, person.position, person.rank, person.firstName, person.attendances));
+      }
+
+      sheet.obj.department.persons = p;
+    }
+
     let temp = [
         "{\"name\":\"Dienstbetrieb\",\"department\":{\"name\":\"Dienstbetrieb\",\"persons\":[{\"attendances\":{},\"firstName\":\"Anton\",\"lastName\":\"Brugger\",\"rank\":\"Hptm\",\"position\":\"Kommandant\"},{\"attendances\":{\"3.1\":\"K\",\"4.1\":\"K\",\"5.1\":\"K\",\"6.1\":\"K\",\"7.1\":\"K\",\"8.1\":\"K\",\"2.1\":\"K\",\"2.2\":\"K\",\"2.3\":\"K\"},\"firstName\":\"\",\"lastName\":\"Hutka\",\"rank\":\"\",\"position\":\"funk2\"},{\"attendances\":{\"5.1\":\"K\",\"6.1\":\"Anw\",\"7.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Rumpler\",\"rank\":\"\",\"position\":\"funk3\"},{\"attendances\":{\"5.1\":\"Anw\",\"6.1\":\"Anw\",\"7.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Blasl\",\"rank\":\"\",\"position\":\"funk3\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Mayer\",\"rank\":\"\",\"position\":\"funk4\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Medwenitsch\",\"rank\":\"\",\"position\":\"funk5\"},{\"attendances\":{\"4.1\":\"DZ\",\"5.1\":\"DZ\",\"6.1\":\"AE\",\"7.1\":\"Anw\",\"8.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Seidl\",\"rank\":\"\",\"position\":\"funk5\"},{\"attendances\":{\"3.1\":\"DZ\",\"4.1\":\"DZ\",\"5.1\":\"DZ\",\"6.1\":\"AE\",\"7.1\":\"Anw\",\"8.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Klenner\",\"rank\":\"\",\"position\":\"funk5\"}]}}",
         "{\"name\":\"Dienstbetrieb_2\",\"department\":{\"name\":\"Dienstbetrieb_2\",\"persons\":[{\"attendances\":{\"3.1\":\"K\",\"4.1\":\"K\",\"5.1\":\"K\",\"6.1\":\"K\",\"7.1\":\"K\",\"8.1\":\"K\",\"2.1\":\"K\",\"2.2\":\"K\",\"2.3\":\"K\"},\"firstName\":\"\",\"lastName\":\"Brugger2\",\"rank\":\"\",\"position\":\"funk1\"},{\"attendances\":{\"5.1\":\"K\",\"6.1\":\"Anw\",\"7.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Hutka2\",\"rank\":\"\",\"position\":\"funk2\"},{\"attendances\":{\"5.1\":\"Anw\",\"6.1\":\"Anw\",\"7.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Rumpler2\",\"rank\":\"\",\"position\":\"funk3\"},{\"attendances\":{\"4.1\":\"DZ\",\"5.1\":\"DZ\",\"6.1\":\"AE\",\"7.1\":\"Anw\",\"8.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Medwenitsch2\",\"rank\":\"\",\"position\":\"funk5\"},{\"attendances\":{\"3.1\":\"DZ\",\"4.1\":\"DZ\",\"5.1\":\"DZ\",\"6.1\":\"AE\",\"7.1\":\"Anw\",\"8.1\":\"Anw\"},\"firstName\":\"\",\"lastName\":\"Seidl2\",\"rank\":\"\",\"position\":\"funk5\"},{\"attendances\":{},\"firstName\":\"\",\"lastName\":\"Klenner2\",\"rank\":\"\",\"position\":\"funk5\"}]}}",
@@ -58,7 +88,13 @@ export class DataService {
     ];
     for (let i of temp) {
       let dep = JSON.parse(i).department as Department;
-      this.data.push(new Department(dep.name, dep.persons));
+      let pers: Person[] = [];
+
+      for (let p of dep.persons) {
+        pers.push(new Person(p.lastName, p.position, p.rank, p.firstName, p.attendances));
+      }
+
+      this.data.push(new Department(dep.name, pers));
     }
     console.log(this.data);
   }
@@ -131,7 +167,7 @@ export class DataService {
     }
 
     if (days.length === 0) {
-      throw "datum not ok";
+      throw {"message": "no days found"};
     }
 
     // Spalten Indizes finden
@@ -152,7 +188,7 @@ export class DataService {
     }
 
     if (lastNameColumn === -1) {
-      throw "header not ok";
+      throw {"message": "header unreadable"};
     }
 
     // Personen suchen
@@ -173,7 +209,7 @@ export class DataService {
       if (sheetContent[i][lastNameColumn] === null) {
         for (let temp of sheetContent[i]) {
           if (temp !== null) {
-            throw "person sus";
+            throw {message: "person undetectable", row: i, column: lastNameColumn};
           }
         }
 
@@ -312,4 +348,6 @@ export class DataService {
   }
 }
 
-export enum ModalModes{ NONE, OLD_EXCEL, PERSON, PERSON_MAIN }; 
+
+type WindowWithChromeFilePicker = Window & typeof globalThis & {showOpenFilePicker: (options: {types: {description: string, accept: {[name: string]: string[]}}[], excludeAcceptAllOption: boolean, multiple: boolean}) => any[]};
+export enum ModalModes{ NONE, OLD_EXCEL, PERSON, PERSON_MAIN, ATTENDANCES_LIST }; 

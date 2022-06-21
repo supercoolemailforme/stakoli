@@ -31,7 +31,6 @@ export class LoadingComponent implements OnInit {
     this.dataService = data;
 
     this._active = data.loadingActive.subscribe(value => {
-      console.log(value);
       if (this.active && !value) {
         this.overallFadeOut = true;
         setTimeout(() => {

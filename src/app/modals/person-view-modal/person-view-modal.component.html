@@ -21,12 +21,23 @@
                 <option value="" selected>
                     Kein Dienstgrad
                 </option>
-                <option *ngFor="let rank of dataService.ranks" [value]="rank.short">
+                <option *ngFor="let rank of dataService.ranksRekrut" [value]="rank.short">
                     {{rank.long}}
                 </option>
-                <option value="other">
-                    Andere Bezeichnung
-                </option>
+                <optgroup label="Chargen">
+                    <option *ngFor="let rank of dataService.ranksChargen" [value]="rank.short">{{rank.long}}</option>
+                </optgroup>
+                <optgroup label="Unteroffiziere">
+                    <option *ngFor="let rank of dataService.ranksUO" [value]="rank.short">{{rank.long}}</option>
+                </optgroup>
+                <optgroup label="Offiziere">
+                    <option *ngFor="let rank of dataService.ranksOffizier" [value]="rank.short">{{rank.long}}</option>
+                </optgroup>
+                <optgroup label="Weitere">
+                    <option value="other">
+                        Andere Bezeichnung
+                    </option>
+                </optgroup>
             </select>
             <input *ngIf="rankSelectValue === 'other'" (keydown.enter)="selectNextInput($event)" [(ngModel)]="rankInputValue" type="text" placeholder="Rang" />
         </div>
@@ -40,7 +51,7 @@
     <span class="bottom-info">
         * Pflichtfelder
     </span>
-    <div class="modalButtomBtnDiv">
+    <div class="modalBottomBtnDiv">
         <button (click)="save()" [disabled]="person.lastName === ''" class="actionBtn positivBtn">Speichern</button>
         <button (click)="cancel()" class="actionBtn negativBtn">Abbrechen</button>
     </div>
