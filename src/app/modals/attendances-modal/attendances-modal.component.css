@@ -1,0 +1,90 @@
+.modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+button:disabled {
+    opacity: 0.6;
+}
+
+.attendanceListDiv {
+    overflow-y: auto;
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.attendanceListDiv > div {
+    width: 100px;
+    border: 2px solid #222;
+    display: inline-flex;
+    border-radius: 2px;
+    padding: 0px 6px;
+    align-items: center;
+}
+
+.editBtn, .deleteBtn {
+    flex-basis: 30px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding: 3px;
+    margin: 0px;
+    border: 0px;
+    background-color: transparent;
+}
+
+.editBtn svg, .deleteBtn svg {
+    transition-duration: 0.15s;
+}
+
+.editBtn:hover svg, .deleteBtn:hover svg {
+    transform: scale(1.05);
+}
+
+.deleteBtn {
+    color: red;
+}
+
+.attendanceName, .editInput{
+    font-size: 20px;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 0px;
+    width: 0px;
+}
+
+.editInput {
+    border: 0px;
+    box-shadow: none;
+    font-family: "Times New Roman";
+    padding: 0px 0px 0px 2px;
+}
+
+#newAttendanceInput {
+    width: 100px;
+    padding: 5px 8px;
+}
+
+#newAttendanceInput, #newAttendanceInput::placeholder {
+    font-size: 20px;
+}
+
+.newAttendance {
+    display: flex;
+    margin-top: 40px;
+    justify-content: center;
+}
+
+.newAttendance > button {
+    padding: 0px;
+    margin: 0px 0px 0px 10px;
+    border: 0px;
+    display: block;
+}
+
+.newAttendance > button > svg {
+    height: 100%;
+    width: auto;
+    color: #657557;
+}

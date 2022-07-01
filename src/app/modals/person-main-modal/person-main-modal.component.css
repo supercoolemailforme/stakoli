@@ -1,4 +1,8 @@
 
+.contentDiv {
+    height: 100%;
+}
+
 .outherDiv {
     width: 600px;
     height: 70vh;
@@ -124,12 +128,16 @@ h3 {
 
 .summary {
     font-size: 18px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .attendanceSummaries {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 25px;
+    overflow-y: auto;
 }
 
 .attendanceSummaries div {

@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { AttendancePickerComponent } from './attendance-picker/attendance-picker.component';
 import { AutofocusDirective } from './directives/autofocus.directive';
 import { PersonMainModalComponent } from './modals/person-main-modal/person-main-modal.component';
+import { AttendancesModalComponent } from './modals/attendances-modal/attendances-modal.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PersonMainModalComponent } from './modals/person-main-modal/person-main
     PersonViewModalComponent,
     AttendancePickerComponent,
     AutofocusDirective,
-    PersonMainModalComponent
+    PersonMainModalComponent,
+    AttendancesModalComponent
   ],
   imports: [
     BrowserModule,

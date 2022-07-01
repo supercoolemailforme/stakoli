@@ -4,6 +4,7 @@
     <app-stakoli-table></app-stakoli-table>
 </div>
 <div class="overallDiv" id="overallModalDiv">
+    <app-attendances-modal *ngIf="activeModalMode === modalModes.ATTENDANCES_LIST"></app-attendances-modal>
     <app-read-old-excel-modal *ngIf="activeModalMode === modalModes.OLD_EXCEL"></app-read-old-excel-modal>
     <app-person-view-modal *ngIf="activeModalMode === modalModes.PERSON" [_person]="dataService.editPerson ? dataService.editPerson : undefined" (personChanged)="dataService.OnAddPersonEvent ? dataService.OnAddPersonEvent($event) : ''"></app-person-view-modal>
     <app-person-main-modal *ngIf="activeModalMode === modalModes.PERSON_MAIN && dataService.selectedPerson" [selectedPerson]="dataService.selectedPerson"></app-person-main-modal>
