@@ -4,6 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Data } from '@angular/router';
 import { threadId } from 'worker_threads';
 import { Department, Person } from '../data-models/department';
+import { SubmitDialogOption, SubmitDialogResult } from '../modals/submit-dialog-modal/submit-dialog-modal.component';
 import { DataService, ModalModes } from '../services/data.service';
 
 @Component({
@@ -31,9 +32,12 @@ export class StakoliTableComponent implements OnInit {
   lastDepartmentClick: {index: number, time: Date} = {index: -1, time: new Date()};
   modifingDepartmentIndex = -1;
 
+  submitDialogOpen: boolean = false;
+
   date = Date;
   con = console;
   array = Array;
+  SubmitDialogOption = SubmitDialogOption;
 
   constructor(public dataService: DataService) {
     this.viewType = dataService.getLocalStorage("stakoliViewType", "week");
@@ -168,10 +172,18 @@ export class StakoliTableComponent implements OnInit {
   }
 
   deleteDepartment() {
-    this.dataService.data.splice(this.selectedDepartmentIndex, 1);
-    if (this.selectedDepartmentIndex === this.dataService.data.length) {
-      --this.selectedDepartmentIndex;
+    this.submitDialogOpen = true;
+  }
+
+  OnSubmitDialogResult(result: SubmitDialogResult) {
+    if (result === SubmitDialogResult.Yes) {
+      this.dataService.data.splice(this.selectedDepartmentIndex, 1);
+      if (this.selectedDepartmentIndex === this.dataService.data.length) {
+        --this.selectedDepartmentIndex;
+      }
     }
+
+    this.submitDialogOpen = false;
   }
 
   clickOnDepartment(index: number, event: Event) {

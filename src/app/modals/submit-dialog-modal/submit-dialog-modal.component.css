@@ -1,9 +1,14 @@
+.overallDiv {
+    z-index: 1100;
+}
+
 .modal {
     height: auto;
     min-height: auto;
     display: flex;
     flex-direction: column;
     padding: 40px;
+    max-width: 350px;
 }
 
 .modal > div {

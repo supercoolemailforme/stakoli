@@ -64,3 +64,7 @@
         </div>
     </div>
 </div>
+<app-submit-dialog-modal *ngIf="submitDialogOpen" [textTemplate]="template" [dialogMode]="SubmitDialogOption.YesNoCancle" (OnResult)="OnSubmitDialogResult($event)"></app-submit-dialog-modal>
+<ng-template #template>
+    Möchten Sie die Person '{{person.getFullNameString()}}' wirklich löschen?
+</ng-template>

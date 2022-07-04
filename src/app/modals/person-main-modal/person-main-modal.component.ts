@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Person } from 'src/app/data-models/department';
 import { DataService, ModalModes } from 'src/app/services/data.service';
+import { SubmitDialogOption, SubmitDialogResult } from '../submit-dialog-modal/submit-dialog-modal.component';
 
 @Component({
   selector: 'app-person-main-modal',
@@ -14,6 +15,9 @@ export class PersonMainModalComponent implements OnInit {
   selectedSiteIndex = 0;
   attendanceLength = 0;
   attendanceSummary: number[] = [];
+
+  SubmitDialogOption = SubmitDialogOption;
+  submitDialogOpen: boolean = false;
 
   get person(): Person {
     return this.dataService.data[this.selectedPerson.departmentIndex].persons[this.selectedPerson.personIndex];
@@ -61,8 +65,16 @@ export class PersonMainModalComponent implements OnInit {
   }
 
   deletePerson(): void {
-    this.dataService.data[this.selectedPerson.departmentIndex].persons.splice(this.selectedPerson.personIndex, 1);
-    this.cancel();
+    this.submitDialogOpen = true;
+  }
+
+  OnSubmitDialogResult(result: SubmitDialogResult) {
+    if (result === SubmitDialogResult.Yes) {
+      this.dataService.data[this.selectedPerson.departmentIndex].persons.splice(this.selectedPerson.personIndex, 1);
+      this.cancel();
+    }
+
+    this.submitDialogOpen = false;
   }
 
   switchDepartment(event: Event) {

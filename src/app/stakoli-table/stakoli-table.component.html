@@ -99,6 +99,18 @@
         </ng-container>
     </tr>
 </table>
+<app-submit-dialog-modal *ngIf="submitDialogOpen" [textTemplate]="template" [dialogMode]="SubmitDialogOption.YesNoCancle" (OnResult)="OnSubmitDialogResult($event)"></app-submit-dialog-modal>
+<ng-template #template>
+    <p *ngIf="dataService.data[selectedDepartmentIndex].persons.length !== 0; else noPersons">
+        In dieser Abteilung sind noch {{dataService.data[selectedDepartmentIndex].persons.length}} Personen gespeichert.
+    </p>
+    <ng-template #noPersons>
+        <p>Diese Abteilung ist leer.</p>
+    </ng-template>
+    <p>
+        Möchten Sie die Abteilung '{{dataService.data[selectedDepartmentIndex].name}}' wirklich löschen?
+    </p>
+</ng-template>
 <button (click)="addPerson()">
     Add Person
 </button>
