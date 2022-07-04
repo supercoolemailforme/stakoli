@@ -31,4 +31,8 @@
     <div class="modalBottomBtnDiv">
         <button (click)="close()" class="actionBtn">Schließen</button>
     </div>
+    <app-submit-dialog-modal *ngIf="deleteAttendanceIndex !== -1" [textTemplate]="modalText" [dialogMode]="SubmitDialogOption.YesNoCancle" (OnResult)="submitDialogCallback($event)"></app-submit-dialog-modal>
+    <ng-template #modalText>
+        <span>Wollen Sie den Anwesenheitstyp {{dataService.attendanceTypes[deleteAttendanceIndex]}} wirklich löschen?</span>
+    </ng-template>
 </div>

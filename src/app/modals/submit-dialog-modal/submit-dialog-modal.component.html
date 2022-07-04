@@ -1,0 +1,18 @@
+<div class="overallDiv">
+    <div class="modal">
+        <div>
+            <ng-container [ngTemplateOutlet]="textTemplate">
+            </ng-container>
+        </div>
+        <div class="modalBottomBtnDiv">
+            <button *ngIf="dialogMode === SubmitDialogOption.Ok" 
+                        (click)="emitResult(SubmitDialogResult.Ok)" class="actionBtn">OK</button>
+            <button *ngIf="dialogMode === SubmitDialogOption.YesNo || dialogMode === SubmitDialogOption.YesNoCancle"
+                        (click)="emitResult(SubmitDialogResult.Yes)" class="actionBtn positivBtn">Ja</button>
+            <button *ngIf="dialogMode === SubmitDialogOption.YesNo || dialogMode === SubmitDialogOption.YesNoCancle"
+                        (click)="emitResult(SubmitDialogResult.No)" class="actionBtn negativBtn">Nein</button>
+            <button *ngIf="dialogMode === SubmitDialogOption.YesNoCancle"
+                        (click)="emitResult(SubmitDialogResult.Cancle)" class="actionBtn">Abbrechen</button>
+        </div>
+    </div>
+</div>

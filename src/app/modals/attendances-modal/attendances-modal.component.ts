@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService, ModalModes } from 'src/app/services/data.service';
+import { SubmitDialogOption, SubmitDialogResult } from '../submit-dialog-modal/submit-dialog-modal.component';
 
 @Component({
   selector: 'app-attendances-modal',
@@ -8,14 +9,20 @@ import { DataService, ModalModes } from 'src/app/services/data.service';
 })
 export class AttendancesModalComponent implements OnInit {
 
-  constructor(public dataService: DataService) { }
-
   attendanceEditIndex: number = -1;
   newAttendanceInput: string = "";
   editAttendanceInput: string = "";
+  deleteAttendanceIndex: number = -1;
+
+  SubmitDialogOption = SubmitDialogOption;
+  SubmitDialogResult = SubmitDialogResult;
+
+
+  constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
   }
+
 
   close() {
     this.dataService.modalMode.next(ModalModes.NONE);
@@ -55,16 +62,7 @@ export class AttendancesModalComponent implements OnInit {
   }
 
   deleteAttendance(index: number): void {
-    for (let department of this.dataService.data) {
-      for (let person of department.persons) {
-        for (let dayKey of Object.keys(person.attendances)) {
-          if (person.attendances[dayKey] === this.dataService.attendanceTypes[this.attendanceEditIndex]) {
-            person.attendances[dayKey] = undefined;
-          }
-        }
-      }
-    }
-    this.dataService.attendanceTypes.splice(index, 1);
+    this.deleteAttendanceIndex = index;
     this.endEditing();
   }
 
@@ -76,6 +74,23 @@ export class AttendancesModalComponent implements OnInit {
     let index = this.dataService.attendanceTypes.indexOf(currentValue);
 
     return index === -1 || index === currentItem;
+  }
+
+  submitDialogCallback(result: SubmitDialogResult) {
+    if (result === SubmitDialogResult.Yes) {
+      for (let department of this.dataService.data) {
+        for (let person of department.persons) {
+          for (let dayKey of Object.keys(person.attendances)) {
+            if (person.attendances[dayKey] === this.dataService.attendanceTypes[this.deleteAttendanceIndex]) {
+              person.attendances[dayKey] = undefined;
+            }
+          }
+        }
+      }
+      this.dataService.attendanceTypes.splice(this.deleteAttendanceIndex, 1);
+    }
+
+    this.deleteAttendanceIndex = -1;
   }
 
 }

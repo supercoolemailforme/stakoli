@@ -13,6 +13,7 @@ import { AttendancePickerComponent } from './attendance-picker/attendance-picker
 import { AutofocusDirective } from './directives/autofocus.directive';
 import { PersonMainModalComponent } from './modals/person-main-modal/person-main-modal.component';
 import { AttendancesModalComponent } from './modals/attendances-modal/attendances-modal.component';
+import { SubmitDialogModalComponent } from './modals/submit-dialog-modal/submit-dialog-modal.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AttendancesModalComponent } from './modals/attendances-modal/attendance
     AttendancePickerComponent,
     AutofocusDirective,
     PersonMainModalComponent,
-    AttendancesModalComponent
+    AttendancesModalComponent,
+    SubmitDialogModalComponent
   ],
   imports: [
     BrowserModule,
