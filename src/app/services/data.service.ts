@@ -51,6 +51,12 @@ export class DataService {
   // readData
   foundSheetsList: any[] = [];
   activeFile: File | null = null;
+  //fileHandle: FileSystemFileHandle | null = null;
+  fileHandle: any;
+  get IsFileOpen(): boolean {
+    return this.temp;
+  }
+  temp: boolean = true;
 
 
 
@@ -346,8 +352,36 @@ export class DataService {
       return rank;
     }
   }
+
+  async openDialog() {
+    if (!(<WindowWithChromeFilePicker>window).showOpenFilePicker) {
+      alert("Dieser Browser unterstützt keinen Chromium-File-Dialog");
+      return;
+    }
+    [this.fileHandle] = await (<WindowWithChromeFilePicker>window).showOpenFilePicker({types: [{description: "StaKoLi File", accept: {"stakoli/input": [".json"]}}], excludeAcceptAllOption: true, multiple: false});
+    if (!this.fileHandle) {
+      return;
+    }
+    console.log(this.fileHandle);
+    //console.log(((await this.fileHandle.getFile()).stream().));
+    await this.saveToHandle();
+  }
+
+  async saveToHandle() {/*
+    if (this.fileHandle) {
+      const stream = await this.fileHandle.createWritable();
+      const data = this.data;
+      await stream.write({type: "write", position: 0, data: new TextEncoder().encode("const data=" + JSON.stringify(data))});
+      await stream.close();
+    }*/
+  }
+
+  getLocalStorage(key: string, altValue: any): any {
+    return window.localStorage.getItem(key) !== null ? window.localStorage.getItem(key) : altValue;
+  }
 }
 
 
 type WindowWithChromeFilePicker = Window & typeof globalThis & {showOpenFilePicker: (options: {types: {description: string, accept: {[name: string]: string[]}}[], excludeAcceptAllOption: boolean, multiple: boolean}) => any[]};
+
 export enum ModalModes{ NONE, OLD_EXCEL, PERSON, PERSON_MAIN, ATTENDANCES_LIST }; 

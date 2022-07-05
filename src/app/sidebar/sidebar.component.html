@@ -1,0 +1,22 @@
+<div class="sidebar-overall">
+    <div class="top-div">
+        <h1>StaKoLi</h1>
+    </div>
+    <div class="file-meta">
+        <span class="file-name">Filename.skl</span>
+        <span class="file-year">{{dataService.year}}</span>
+    </div>
+    <div class="fileManagerBtnDiv">
+        <button (click)="dataService.openDialog()" *ngIf="!dataService.IsFileOpen" class="actionBtn openBtn">Datei öffnen</button>
+        <button (click)="dataService.saveToHandle()" *ngIf="dataService.IsFileOpen" class="actionBtn saveBtn">Speichern</button>
+        <button class="actionBtn negativBtn closeBtn" *ngIf="dataService.IsFileOpen">Schließen</button>
+    </div>
+    <div class="excelInputDiv">
+        <label class="actionBtn" for="excelFileInput" *ngIf="!dataService.IsFileOpen">Excel-Datei einlesen</label>
+        <input type="file" id="excelFileInput" (change)="dataService.openFileTest($event)" accept=".xlsx" />
+    </div>
+    <div class="bottom-div">
+        <button (click)="dataService.modalMode.next(ModalModes.ATTENDANCES_LIST)" class="actionBtn">Anwesenheits-Typen ändern</button>
+    </div>
+    <button (click)="dataService.temp = ! dataService.temp">toggle</button>
+</div>

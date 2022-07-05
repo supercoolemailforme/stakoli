@@ -15,11 +15,21 @@
 .attendancePickerWindow {
     background-color: #111111bb;
     position: absolute;
-    top: calc(100% + 5px);
+    padding-top: calc(100% + 5px);
+    top: 0px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
     min-width: 100%;
+    display: none;
+}
+
+.attendancePickerWindow.open, .attendancePickerWindow:hover {
+    display: block;
+}
+
+.attendancePickerWindow.close {
+    display: none !important;
 }
 
 .closeBtnDiv {

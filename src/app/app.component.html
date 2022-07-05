@@ -1,6 +1,5 @@
-<div>
-    <input type="file" (change)="dataService.openFileTest($event)" accept=".xlsx" />
-    <button (click)="activeModalMode = modalModes.ATTENDANCES_LIST">Anwesenheits-Typen</button>
+<div class="bodyDiv">
+    <app-sidebar></app-sidebar>
     <app-stakoli-table></app-stakoli-table>
 </div>
 <div class="overallDiv" id="overallModalDiv">

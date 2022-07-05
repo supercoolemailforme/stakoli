@@ -4,7 +4,7 @@
             {{value === undefined ? "-" : value}}
         </span>
     </button>
-    <div *ngIf="pickerOpen" class="attendancePickerWindow">
+    <div [class.open]="pickerOpen" [class.close]="pickerClose" class="attendancePickerWindow">
         <div class="closeBtnDiv">
             <button (click)="closePicker()">x</button>
         </div>

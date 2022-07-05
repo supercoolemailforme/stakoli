@@ -15,6 +15,7 @@ export class AttendancePickerComponent implements OnInit {
   static lastActivePicker: AttendancePickerComponent;
 
   pickerOpen: boolean = false;
+  pickerClose: boolean = false;
 
   dataService: DataService;
 
@@ -26,19 +27,25 @@ export class AttendancePickerComponent implements OnInit {
   ngOnInit(): void {}
 
   togglePicker() {
-    this.pickerOpen = !this.pickerOpen;
-
+    this.pickerOpen = true;
+    setTimeout(() => {
+      this.pickerOpen = false;
+    }, 10);
+    /*
     if (this.pickerOpen) {
       if (AttendancePickerComponent.lastActivePicker && AttendancePickerComponent.lastActivePicker !== this) {
         AttendancePickerComponent.lastActivePicker.closePicker();
       }
       
       AttendancePickerComponent.lastActivePicker = this;
-    }
+    }*/
   }
 
   closePicker() {
-    this.pickerOpen = false;
+    this.pickerClose = true;
+    setTimeout(() => {
+      this.pickerClose = false;
+    }, 10);
   }
 
   setValue(newValue: string) {

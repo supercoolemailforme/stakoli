@@ -1,3 +1,7 @@
 div#overallModalDiv:empty {
     display: none;
 }
+
+.bodyDiv {
+    margin-left: 300px;
+}

@@ -14,6 +14,7 @@ import { AutofocusDirective } from './directives/autofocus.directive';
 import { PersonMainModalComponent } from './modals/person-main-modal/person-main-modal.component';
 import { AttendancesModalComponent } from './modals/attendances-modal/attendances-modal.component';
 import { SubmitDialogModalComponent } from './modals/submit-dialog-modal/submit-dialog-modal.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SubmitDialogModalComponent } from './modals/submit-dialog-modal/submit-
     AutofocusDirective,
     PersonMainModalComponent,
     AttendancesModalComponent,
-    SubmitDialogModalComponent
+    SubmitDialogModalComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
