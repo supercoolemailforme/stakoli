@@ -11,11 +11,16 @@
         <button (click)="dataService.saveToHandle()" *ngIf="dataService.IsFileOpen" class="actionBtn saveBtn">Speichern</button>
         <button class="actionBtn negativBtn closeBtn" *ngIf="dataService.IsFileOpen">Schließen</button>
     </div>
-    <div class="excelInputDiv">
-        <label class="actionBtn" for="excelFileInput" *ngIf="!dataService.IsFileOpen">Excel-Datei einlesen</label>
-        <input type="file" id="excelFileInput" (change)="dataService.openFileTest($event)" accept=".xlsx" />
+    <div class="excelInputDiv" *ngIf="!dataService.IsFileOpen">
+        <button class="actionBtn newFile">Neue Datei erstellen</button>
+        <div>
+            <button class="actionBtn">Leere Datei erstellen</button>
+            <button class="actionBtn">Personen aus anderer Datei kopieren</button>
+            <label class="actionBtn" for="excelFileInput">Excel-Datei einlesen</label>
+            <input type="file" id="excelFileInput" (change)="dataService.openFileTest($event)" accept=".xlsx" />
+        </div>
     </div>
-    <div class="bottom-div">
+    <div class="bottom-div" *ngIf="dataService.IsFileOpen">
         <button (click)="dataService.modalMode.next(ModalModes.ATTENDANCES_LIST)" class="actionBtn">Anwesenheits-Typen ändern</button>
     </div>
     <button (click)="dataService.temp = ! dataService.temp">toggle</button>

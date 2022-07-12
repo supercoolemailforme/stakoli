@@ -63,6 +63,9 @@
     margin: 0px;
     font-size: 26px;
     font-weight: normal;
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .topPersonDiv .editBtn {
@@ -91,6 +94,30 @@
     position: absolute;
     right: 20px;
     bottom: 20px;
+}
+
+.positionText {
+    white-space: nowrap;
+    width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    justify-content: right;
+    gap: 5px;
+}
+
+.positionText .position {
+    flex-grow: 1;
+    flex-basis: 0;
+    flex-shrink: 1;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.positionText .department {
+    flex-grow: 0;
+    flex-shrink: 0;
 }
 
 .topPersonDiv .rank {

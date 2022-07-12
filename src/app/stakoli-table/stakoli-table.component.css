@@ -1,5 +1,5 @@
 td {
-    border: 1px solid #333;
+    border-right: 1px solid #333;
     margin: 0px;
     padding: 0px;
     outline: 0px;
@@ -23,4 +23,217 @@ td:empty {
     background-color: transparent;
     font-size: inherit;
     font-family: inherit;
+}
+
+.noFileDiv {
+    margin: 50px 70px;
+}
+
+.noFileDiv h2 {
+    margin: 0px;
+    font-style: italic;
+}
+
+.timePickerBtn {
+    background-color: transparent;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    border-radius: 5px;
+    padding: 1px;
+}
+
+.timePickerBtn:hover {
+    padding: 0px;
+}
+
+.timePickerBtn:hover svg {
+    height: 32px;
+}
+
+.timePickerBtn svg {
+    height: 30px;
+}
+
+.timePicker {
+    display: inline-flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.layoutPicker {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 60px;
+}
+
+.layoutPicker button {
+    padding: 6px 8px;
+    height: 38px;
+    width: 42px;
+    border-radius: 0px;
+    border: 0px;
+    margin: 0px;
+    color: white;
+    background-color: #36363a;
+}
+
+.layoutPicker button:hover {
+    padding: 5px 7px;
+}
+
+.layoutPicker button.selected {
+    /*color: #ffcd70;*/
+    color: #c0c88d;
+}
+
+.layoutPicker button.selected:hover {
+    padding: 6px 8px;
+}
+
+.layoutPicker button:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.layoutPicker button:last-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.layoutPicker button svg {
+    height: 100%;
+}
+
+.topBar {
+    margin: 30px 40px 50px 40px;
+    display: flex;
+    align-items: center;
+}
+
+.topBar select {
+    width: 190px;
+}
+
+.departmentOverallDiv button {
+    background-color: #36363a;
+    color: white;
+    border-radius: 5px 5px 0px 0px;
+    margin: 0px 3px;
+    font-size: 17px;
+    padding: 5px 8px;
+    font-weight: 600;
+    border: 0px;
+    border-top: 3px solid transparent;
+    margin-top: 3px;
+    white-space: nowrap;
+    transition-duration: 0.15s;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 110px;
+}
+
+.departmentOverallDiv button.selected {
+    background-color: hsl(92deg 25% 40%);
+    text-shadow: 1px 1px 2px #222;
+}
+
+.departmentOverallDiv button.selected, .departmentOverallDiv button:hover {
+    margin-top: 0px;
+    padding-bottom: 8px;
+}
+
+.departmentOverallDiv button:disabled {
+    opacity: 0.5;
+}
+
+.departmentOverallDiv button.departmentScrollBtn {
+    background-color: transparent;
+}
+
+.departmentOverallDiv button.departmentScrollBtn svg {
+    height: 30px;
+    color: black;
+}
+
+.summaryDepartmentDiv {
+    margin-left: 20px;
+}
+
+.departmentOverallDiv {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px;
+    align-items: flex-end;
+}
+
+.headerDepartmentDiv {
+    flex-shrink: 1;
+    overflow-x: auto;
+    display: flex;
+    align-items: flex-start;
+}
+
+.headerDepartmentDiv::-webkit-scrollbar {
+    height: 0px;
+}
+
+.newDepartmentDiv {
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+    align-items: center;
+    margin: 20px 25px;
+    height: 34px;
+}
+
+.departmentViewDiv {
+    border: 1px solid #999;
+    margin: 0px 15px 30px 15px;
+    padding: 20px;
+    box-shadow: 2px 2px 4px #999;
+    border-radius: 5px;
+}
+
+.addDepartmentSmallBtn {
+    height: 28px;
+    width: 28px;
+    margin: 3px;
+    padding: 3px;
+}
+
+.searchDiv {
+    position: relative;
+}
+
+.searchDiv input {
+    padding-left: 25px;
+}
+
+.searchDiv svg {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    top: 4px;
+}
+
+.sortBtn {
+    display: flex;
+    border: 0px;
+    padding: inherit;
+    background-color: transparent;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: 600;
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    justify-content: center;
+    align-items: center;
+}
+
+.sortBtn svg {
+    height: 23px;
 }

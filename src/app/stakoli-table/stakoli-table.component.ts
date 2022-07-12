@@ -274,10 +274,12 @@ export class StakoliTableComponent implements OnInit {
         return this.sortNames().reverse();
       case "function":
         return this.sortFunctions();
+      case "function desc":
+        return this.sortFunctions().reverse();
       case "added":
         return this.dataService.data[this.selectedDepartmentIndex].persons;
       default:
-        return this.dataService.data[this.selectedDepartmentIndex].persons;
+        return this.sortNames();
     }
   }
 
@@ -310,7 +312,6 @@ export class StakoliTableComponent implements OnInit {
 
   sortNames(): Person[] {
     if (this.prevNameSum !== this.dataService.data[this.selectedDepartmentIndex].getDepartmentNamesHash()) {
-      console.log("reload");
       this.prevNameSum = this.dataService.data[this.selectedDepartmentIndex].getDepartmentNamesHash();
       this.sortedNamesList = [];
 
@@ -338,6 +339,13 @@ export class StakoliTableComponent implements OnInit {
 
   getPersonIndex(person: Person): number {
     return this.dataService.data[this.selectedDepartmentIndex].persons.indexOf(person, undefined);
+  }
+
+  OnNewDepartmentBlur(relatedTarget: EventTarget | null) {
+    if (relatedTarget && (relatedTarget as HTMLElement).classList.contains("addDepartmentSmallBtn")) {
+      return;
+    }
+    this.cancelAddDepartment();
   }
 
 }

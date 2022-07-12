@@ -12,8 +12,6 @@ export class AttendancePickerComponent implements OnInit {
   @Input() value: string = "";
   @Output() valueChange = new EventEmitter<string>();
 
-  static lastActivePicker: AttendancePickerComponent;
-
   pickerOpen: boolean = false;
   pickerClose: boolean = false;
 
@@ -31,14 +29,6 @@ export class AttendancePickerComponent implements OnInit {
     setTimeout(() => {
       this.pickerOpen = false;
     }, 10);
-    /*
-    if (this.pickerOpen) {
-      if (AttendancePickerComponent.lastActivePicker && AttendancePickerComponent.lastActivePicker !== this) {
-        AttendancePickerComponent.lastActivePicker.closePicker();
-      }
-      
-      AttendancePickerComponent.lastActivePicker = this;
-    }*/
   }
 
   closePicker() {
@@ -51,7 +41,7 @@ export class AttendancePickerComponent implements OnInit {
   setValue(newValue: string) {
     this.value = newValue;
     this.valueChange.emit(newValue);
-    this.pickerOpen = false;
+    this.closePicker();
   }
 
 }

@@ -18,9 +18,7 @@ export class SubmitDialogModalComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-    console.log(this.textTemplate);
-  }
+  ngOnInit(): void {}
 
   emitResult(result: SubmitDialogResult) {
     this.OnResult.emit(result);
