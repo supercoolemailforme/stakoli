@@ -57,8 +57,10 @@ export class AttendancesModalComponent implements OnInit {
   }
 
   addAttendance() {
-    this.dataService.attendanceTypes.push(this.newAttendanceInput);
-    this.newAttendanceInput = "";
+    if (this.isAttendanceValid(this.newAttendanceInput)) {
+      this.dataService.attendanceTypes.push(this.newAttendanceInput);
+      this.newAttendanceInput = "";
+    }
   }
 
   deleteAttendance(index: number): void {

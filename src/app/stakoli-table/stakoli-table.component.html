@@ -56,7 +56,7 @@
             Abteilung hinzufügen
         </button>
         <ng-template #newDepartmentActive>
-            <input autofocus [(ngModel)]="newDepartmentName" *ngIf="addDepartmentActive" placeholder="AbteilungX" (keyup.enter)="addDepartment()" (keyup.escape)="cancelAddDepartment()" (blur)="OnNewDepartmentBlur($event.relatedTarget)"/>
+            <input autofocus [(ngModel)]="newDepartmentName" *ngIf="addDepartmentActive" placeholder="Neue Abteilung" (keyup.enter)="addDepartment()" (keyup.escape)="cancelAddDepartment()" (blur)="OnNewDepartmentBlur($event.relatedTarget)"/>
             <button (click)="addDepartment()" [disabled]="newDepartmentName === ''" class="actionBtn positivBtn addDepartmentSmallBtn">
                 <svg viewBox="0 0 24 24">
                     <path fill="currentColor" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
@@ -72,7 +72,7 @@
         </button>
         <div class="headerDepartmentDiv" #depDiv>
             <ng-container *ngFor="let dep of dataService.data; let i = index">
-                <button *ngIf="modifingDepartmentIndex !== i" (click)="clickOnDepartment(i, $event)" [class.selected]="selectedDepartmentIndex === i">
+                <button *ngIf="modifingDepartmentIndex !== i" (click)="clickOnDepartment(i, $event)" [class.selected]="selectedDepartmentIndex === i" [title]="dep.name">
                     {{dep.name}}
                 </button>
                 <input autofocus *ngIf="modifingDepartmentIndex === i" (blur)="changeDepartmentName()" (keydown.enter)="changeDepartmentName()" (keydown.escape)="cancleChangeDepartmentName()" [(ngModel)]="newDepartmentName" />
@@ -97,72 +97,82 @@
             </svg>
         </div>
 
-        <table *ngIf="dataService.data.length !== 0">
-            <thead>
-                <td>
-                    <button class="sortBtn" (click)="sortOrder = (sortOrder === 'function' ? 'function desc' : 'function')">
+        <div *ngIf="dataService.data.length !== 0" class="stakoli-table-div">
+            <div class="stakoli-table-subtable stakoli-name-table">
+                <div class="stakoli-table-row">
+                    <button class="stakoli-table-cell sortBtn" (click)="sortOrder = (sortOrder === 'function' ? 'function desc' : 'function')">
                         <span>Funktion</span>
                         <svg viewBox="0 0 24 24" [ngStyle]="{'transform': sortOrder.endsWith('desc') ? 'rotateX(180deg)' : '', 'opacity': sortOrder.startsWith('function') ? '1' : '0'}">
                             <path fill="currentColor" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
                         </svg>
                     </button>
-                </td>
-                <td>
-                    <button class="sortBtn" (click)="sortOrder = (sortOrder === 'name' ? 'name desc' : 'name')">
+                    <button class="stakoli-table-cell sortBtn" (click)="sortOrder = (sortOrder === 'name' ? 'name desc' : 'name')">
                         <span>Name</span>
                         <svg viewBox="0 0 24 24" [ngStyle]="{'transform': sortOrder.endsWith('desc') ? 'rotateX(180deg)' : '', 'opacity': sortOrder.startsWith('name') ? '1' : '0'}">
                             <path fill="currentColor" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
                         </svg>
                     </button>
-                </td>
-                <ng-container *ngIf="viewType === 'week' && weeks[selectedWeek].begin.getDate() === 1 && weeks[selectedWeek].begin.getMonth() === 0">
-                    <td class="dayTableDiv" *ngFor="let useless of dataService.getArray(6 - (weeks[0].end.getTime() - weeks[0].begin.getTime()) / (60 * 60 * 24 * 1000))">
-                        Frei
-                    </td>
+                </div>
+                <ng-container *ngFor="let person of getPersons(); let i = index" >
+                    <button class="stakoli-table-row nameBtn" [class.hidden]="!matchesSearchQuery(person)" (click)="editPerson(getPersonIndex(person))">
+                        <div class="stakoli-table-cell" [title]="person.position">
+                            <span class="positionText">
+                                {{person.position}}
+                            </span>
+                        </div>
+                        <div class="stakoli-table-cell" [title]="person.lastName + ' ' + person.firstName + (person.rank ? ', ' + person.rank : '')">
+                            <div class="lastNameDiv">
+                                {{person.lastName}}
+                            </div>
+                            <div class="nameSecondDiv">
+                                <span class="firstNameDiv">
+                                    {{person.firstName}}
+                                </span>
+                                <span class="rankDiv" *ngIf="person.rank">
+                                    {{(person.firstName ? ", " : "") + person.rank}}
+                                </span>
+                            </div>
+                        </div>
+                    </button>
                 </ng-container>
-                <ng-container *ngFor="let day of days; let i = index">
-                    <td class="dayTableDiv" *ngIf="(viewType === 'week' && day >= weeks[selectedWeek].begin && day <= weeks[selectedWeek].end) || (viewType === 'month' && day.getMonth() === selectedMonth)" [style.background]="i === todayIndex ? 'blue' : ''">
-                        <div *ngIf="viewType === 'month' && (day.getDate() === 1 || day.getDay() === 1)">{{getWeek(day, i) + 1}}</div>
-                        <div>{{day.toLocaleDateString('de', {weekday: 'short'})}}</div>
-                        <span>{{day.toLocaleDateString('de', {day: 'numeric', month: 'numeric'})}}</span>
-                    </td>
-                </ng-container>
-                <ng-container *ngIf="viewType === 'week' && weeks[selectedWeek].end.getDate() === 31 && weeks[selectedWeek].end.getMonth() === 11">
-                    <td class="dayTableDiv" *ngFor="let useless of dataService.getArray(6 - (weeks[selectedWeek].end.getTime() - weeks[selectedWeek].begin.getTime()) / (60 * 60 * 24 * 1000))">
-                        Frei
-                    </td>
-                </ng-container>
-            </thead>
-            <tr *ngFor="let person of getPersons(); let i = index">
-                <ng-container *ngIf="matchesSearchQuery(person)">
-                    <td>
-                        {{person.position}}
-                    </td>
-                    <td>
-                        <button class="nameBtn" (click)="editPerson(getPersonIndex(person))">
-                            {{person.lastName + " " + person.firstName + (person.rank ? ", " + person.rank : '')}}
-                        </button>
-                    </td>
+                <button (click)="addPerson()" class="actionBtn positivBtn addPersonBtn">
+                    Person hinzufügen
+                </button>
+            </div>
+            <div class="stakoli-table-subtable stakoli-attendance-table" [style.overflow-x]="viewType === 'week' ? 'visible' : 'auto'">
+                <div class="stakoli-table-row">
                     <ng-container *ngIf="viewType === 'week' && weeks[selectedWeek].begin.getDate() === 1 && weeks[selectedWeek].begin.getMonth() === 0">
-                        <td class="dayTableDiv" *ngFor="let useless of dataService.getArray(6 - (weeks[0].end.getTime() - weeks[0].begin.getTime()) / (60 * 60 * 24 * 1000))">
-                            /
-                        </td>
+                        <div class="stakoli-table-cell dayTableDiv" *ngFor="let useless of dataService.getArray(6 - (weeks[0].end.getTime() - weeks[0].begin.getTime()) / (60 * 60 * 24 * 1000))"></div>
                     </ng-container>
-                    <td *ngFor="let day of (viewType === 'week' ? getSelectedWeek() : getSelectedMonth())">
-                        <app-attendance-picker [(value)]="person.attendances[day.getDate().toString() + '.' + (day.getMonth() + 1).toString()]"></app-attendance-picker>
-                    </td>
+                    <ng-container *ngFor="let day of days; let i = index">
+                        <div class="stakoli-table-cell dayTableDiv" [class.grayedOut]="day.getDay() === 0 || day.getDay() === 6"
+                                    *ngIf="(viewType === 'week' && day >= weeks[selectedWeek].begin && day <= weeks[selectedWeek].end) || (viewType === 'month' && day.getMonth() === selectedMonth)" [class.today]="i === todayIndex">
+                            <div class="weekNumbDiv" *ngIf="viewType === 'month' && (day.getDate() === 1 || day.getDay() === 1)">KW {{getWeek(day, i) + 1}}</div>
+                            <div class="headerDate">{{day.toLocaleDateString('de', {day: 'numeric', month: 'numeric'})}}</div>
+                            <div class="headerWeekday">{{day.toLocaleDateString('de', {weekday: 'short'})}}</div>
+                        </div>
+                    </ng-container>
                     <ng-container *ngIf="viewType === 'week' && weeks[selectedWeek].end.getDate() === 31 && weeks[selectedWeek].end.getMonth() === 11">
-                        <td class="dayTableDiv" *ngFor="let useless of dataService.getArray(6 - (weeks[selectedWeek].end.getTime() - weeks[selectedWeek].begin.getTime()) / (60 * 60 * 24 * 1000))">
-                            /
-                        </td>
-                    </ng-container> 
+                        <div class="stakoli-table-cell dayTableDiv" *ngFor="let useless of dataService.getArray(6 - (weeks[selectedWeek].end.getTime() - weeks[selectedWeek].begin.getTime()) / (60 * 60 * 24 * 1000))"></div>
+                    </ng-container>
+                    <div class="emptySpaceDiv" *ngIf="viewType === 'month'"></div>
+                </div>
+                <ng-container *ngFor="let person of getPersons(); let i = index">
+                    <div class="stakoli-table-row" [class.hidden]="!matchesSearchQuery(person)">
+                        <ng-container *ngIf="viewType === 'week' && weeks[selectedWeek].begin.getDate() === 1 && weeks[selectedWeek].begin.getMonth() === 0">
+                            <div class="stakoli-table-cell dayTableDiv grayedOut lineTrough" *ngFor="let useless of dataService.getArray(6 - (weeks[0].end.getTime() - weeks[0].begin.getTime()) / (60 * 60 * 24 * 1000))"></div>
+                        </ng-container>
+                        <div class="stakoli-table-cell" *ngFor="let day of (viewType === 'week' ? getSelectedWeek() : getSelectedMonth())">
+                            <app-attendance-picker [(value)]="person.attendances[day.getDate().toString() + '.' + (day.getMonth() + 1).toString()]" [weekend]="day.getDay() === 0 || day.getDay() === 6" [tooltip]="day.getDate().toString() + '.' + (day.getMonth() + 1).toString() + '.'"></app-attendance-picker>
+                        </div>
+                        <ng-container *ngIf="viewType === 'week' && weeks[selectedWeek].end.getDate() === 31 && weeks[selectedWeek].end.getMonth() === 11">
+                            <td class="stakoli-table-cell dayTableDiv grayedOut lineTrough" *ngFor="let useless of dataService.getArray(6 - (weeks[selectedWeek].end.getTime() - weeks[selectedWeek].begin.getTime()) / (60 * 60 * 24 * 1000))"></td>
+                        </ng-container> 
+                    </div>
                 </ng-container>
-            </tr>
-        </table>
-        <button (click)="addPerson()" class="actionBtn positivBtn">
-            Person hinzufügen
-        </button>
-        <div>
+            </div>
+        </div>
+        <div class="deleteDepartmentDiv">
             <button (click)="deleteDepartment()" class="actionBtn negativBtn">Abteilung löschen</button>
         </div>
     </div>

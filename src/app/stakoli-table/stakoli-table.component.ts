@@ -271,11 +271,11 @@ export class StakoliTableComponent implements OnInit {
       case "name":
         return this.sortNames();
       case "name desc":
-        return this.sortNames().reverse();
+        return this.sortNames().slice().reverse();
       case "function":
         return this.sortFunctions();
       case "function desc":
-        return this.sortFunctions().reverse();
+        return this.sortFunctions().slice().reverse();
       case "added":
         return this.dataService.data[this.selectedDepartmentIndex].persons;
       default:
@@ -284,7 +284,7 @@ export class StakoliTableComponent implements OnInit {
   }
 
   sortFunctions(): Person[] {
-    if (this.prevFunctionSum !== this.dataService.data[this.selectedDepartmentIndex].getDepartmentNamesHash()) {
+    if (true && this.prevFunctionSum !== this.dataService.data[this.selectedDepartmentIndex].getDepartmentNamesHash()) {
       this.prevFunctionSum = this.dataService.data[this.selectedDepartmentIndex].getDepartmentNamesHash();
       this.sortedFunctionsList = [];
 

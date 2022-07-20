@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 body {
     margin: 0px;
+    background-color: #dee0dc;
+    overflow-y: scroll;
 }
 
 div.overallDiv {
@@ -30,6 +32,7 @@ div.overallDiv {
 
 button {
     cursor: pointer;
+    user-select: none;
 }
 
 button:disabled {

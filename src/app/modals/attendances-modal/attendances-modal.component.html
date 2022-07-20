@@ -19,6 +19,9 @@
                 </button>
             </ng-template>
         </div>
+        <span class="noAttendance">
+            Keine Anwesenheitstypen vorhanden!
+        </span>
     </div>
     <div class="newAttendance">
         <input type="text" maxlength="4" placeholder="Kürzel" [(ngModel)]="newAttendanceInput" (keydown.enter)="addAttendance()" id="newAttendanceInput"/>

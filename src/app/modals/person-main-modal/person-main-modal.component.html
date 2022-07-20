@@ -34,9 +34,9 @@
         <button (click)="selectedSiteIndex = 0" [class.selected]="selectedSiteIndex === 0">
             Übersicht
         </button>
-        <button (click)="selectedSiteIndex = 1" [class.selected]="selectedSiteIndex === 1">
+        <!--button (click)="selectedSiteIndex = 1" [class.selected]="selectedSiteIndex === 1">
             Urlaube
-        </button>
+        </button-->
         <button (click)="selectedSiteIndex = 2" [class.selected]="selectedSiteIndex === 2">
             Optionen
         </button>
@@ -57,13 +57,15 @@
             </div>
             <div class="site" *ngIf="selectedSiteIndex === 2">
                 <h3>Optionen</h3>
-                <button (click)="deletePerson()" class="actionBtn negativBtn">Löschen</button>
-                <label>Abteilung</label>
-                <select (change)="switchDepartment($event)">
-                    <option *ngFor="let dep of dataService.data; let i = index" [selected]="i === selectedPerson.departmentIndex" [value]="i">
-                        {{dep.name}}
-                    </option>
-                </select>
+                <div class="changeDepartmentDiv">
+                    <label>Abteilung wechseln:</label>
+                    <select (change)="switchDepartment($event)" class="changeDepartmentBtn">
+                        <option *ngFor="let dep of dataService.data; let i = index" [selected]="i === selectedPerson.departmentIndex" [value]="i">
+                            {{dep.name}}
+                        </option>
+                    </select>
+                </div>
+                <button (click)="deletePerson()" class="actionBtn negativBtn deletePersonBtn">Person Löschen</button>
             </div>
         </div>
         <div class="modalBottomBtnDiv">

@@ -1,19 +1,3 @@
-td {
-    border-right: 1px solid #333;
-    margin: 0px;
-    padding: 0px;
-    outline: 0px;
-    font-size: 16px;
-}
-
-td:empty {
-    border: 0px;
-}
-
-.dayTableDiv {
-    min-width: 80px;
-}
-
 .nameBtn {
     width: 100%;
     height: 100%;
@@ -150,6 +134,8 @@ td:empty {
 
 .departmentOverallDiv button.departmentScrollBtn {
     background-color: transparent;
+    width: 100px;
+    min-width: auto;
 }
 
 .departmentOverallDiv button.departmentScrollBtn svg {
@@ -194,6 +180,7 @@ td:empty {
     padding: 20px;
     box-shadow: 2px 2px 4px #999;
     border-radius: 5px;
+    background-color: white;
 }
 
 .addDepartmentSmallBtn {
@@ -232,8 +219,210 @@ td:empty {
     margin: 0px;
     justify-content: center;
     align-items: center;
+    font-size: 19px;
 }
 
 .sortBtn svg {
     height: 23px;
+}
+
+
+
+
+
+
+
+
+.stakoli-table-div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    min-height: 50vh;
+}
+
+.stakoli-name-table {
+    width: 250px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-right: 20px;
+}
+
+.stakoli-attendance-table {
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow-x: auto;
+    padding: 0px 60px 180px 60px;
+}
+
+.stakoli-name-table, .stakoli-attendance-table {
+    padding-top: 50px;
+}
+
+.stakoli-table-row:first-child {
+    height: 50px;
+    position: sticky;
+    top: 0px;
+    background-color: white;
+    z-index: 10;
+}
+
+.stakoli-table-row {
+    height: 45px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.stakoli-table-row:hover:not(:first-child) .stakoli-table-cell {
+    background-color: #a2ae99;
+}
+
+.stakoli-attendance-table .stakoli-table-row:hover:not(:first-child) .stakoli-table-cell:hover:not(.lineTrough) {
+    background-color: #78896c;
+}
+
+.stakoli-attendance-table .stakoli-table-cell.today {
+    background-color: #36363a;
+    color: white;
+    font-weight: 600;
+}
+
+.stakoli-name-table .stakoli-table-cell {
+    flex-basis: 0px;
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+.stakoli-name-table .stakoli-table-row:first-child .stakoli-table-cell {
+    flex-direction: row;
+}
+
+.stakoli-name-table .stakoli-table-cell:first-child {
+    width: 50%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 50%;
+}
+
+.stakoli-name-table .stakoli-table-row:first-child .stakoli-table-cell {
+    border-left-width: 0px;
+    border-right-width: 0px;
+}
+
+.stakoli-table-row:last-child .stakoli-table-cell {
+    border-bottom-width: 0px;
+}
+
+.stakoli-name-table .stakoli-table-row:not(:first-child) .stakoli-table-cell:first-child {
+    border-left-width: 1px;
+}
+
+.stakoli-attendance-table .stakoli-table-row .stakoli-table-cell:last-child {
+    border-right-width: 0px;
+}
+
+.stakoli-attendance-table .stakoli-table-cell {
+    width: 60px;
+    flex-basis: 60px;
+    flex-grow: 1;
+    flex-shrink: 0;
+    display: inline-block;
+    max-width: 80px;
+    position: relative;
+    overflow: visible;
+}
+
+.stakoli-table-cell {
+    border-style: solid;
+    border-color: #333;
+    border-width: 0px 1px 1px 0px;
+}
+
+.weekNumbDiv {
+    position: absolute;
+    top: -25px;
+}
+
+.lastNameDiv, .positionText, .firstNameDiv, .rankDiv {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+.nameSecondDiv {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    max-width: 100%;
+    font-size: 15px;
+}
+
+.lastNameDiv {
+    font-size: 18px;
+}
+
+.firstNameDiv {
+    flex-shrink: 100;
+}
+
+.rankDiv {
+    flex-shrink: 1;
+    text-overflow: clip;
+}
+
+.addPersonBtn {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.deleteDepartmentDiv {
+    margin-top: 30px;
+    padding: 20px;
+    text-align: right;
+}
+
+.headerDate {
+    text-align: center;
+    font-size: 22px;
+}
+
+.headerWeekday {
+    text-align: center;
+}
+
+.grayedOut {
+    background-color: #e0e0e0;
+}
+
+.lineTrough {
+    position: relative;
+    overflow: hidden;
+}
+
+.lineTrough::after {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 1px;
+    background: #555;
+    content: "";
+    width: 65%;
+    display: block;
+    transform: translateX(-50%) rotate(335deg);
+}
+
+.emptySpaceDiv {
+    min-width: 60px;
+}
+
+.stakoli-table-row.hidden {
+    display: none;
 }

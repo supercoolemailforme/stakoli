@@ -1,19 +1,36 @@
 <div class="pickerBasisDiv">
-    <button (click)="togglePicker()">
+    <button [class.grayedOut]="weekend && value === undefined" [title]="tooltip" (mousedown)="generate = true">
         <span>
             {{value === undefined ? "-" : value}}
         </span>
     </button>
-    <div [class.open]="pickerOpen" [class.close]="pickerClose" class="attendancePickerWindow">
-        <div class="closeBtnDiv">
-            <button (click)="closePicker()">x</button>
+    <div (click)="closePicker()" class="overBtnDiv"></div>
+    <div [class.close]="pickerClose" class="attendancePickerWindow" *ngIf="generate">
+        <span class="siteNumb">
+            {{atc.selectedSite + 1}} / {{lastSiteIndex + 1}}
+        </span>
+        <div class="changeSiteBtnDiv">
+            <button (click)="incrementSite()" *ngIf="dataService.attendanceTypes.length > 3" class="changeSiteBtn">
+                <svg viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M7.41,18.41L6,17L12,11L18,17L16.59,18.41L12,13.83L7.41,18.41M7.41,12.41L6,11L12,5L18,11L16.59,12.41L12,7.83L7.41,12.41Z" />
+                </svg>
+            </button>
         </div>
-        <div>
-            <button (click)="setValue('-')">
+        <div class="attendanceSite">
+            <button (click)="setValue(undefined)" class="actionBtn" *ngIf="atc.selectedSite === 0">
                 -
             </button>
-            <button *ngFor="let att of dataService.attendanceTypes" (click)="setValue(att)">
-                {{att}}
+            <ng-container *ngFor="let att of dataService.attendanceTypes; let i = index">
+                <button *ngIf="i >= (atc.selectedSite * 4) - 1 && i < ((atc.selectedSite + 1) * 4) - 1" (click)="setValue(att)" class="actionBtn">
+                    {{att}}
+                </button>
+            </ng-container>
+        </div>
+        <div class="changeSiteBtnDiv">
+            <button (click)="decrementSite()" *ngIf="dataService.attendanceTypes.length > 3" class="changeSiteBtn">
+                <svg viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M16.59,5.59L18,7L12,13L6,7L7.41,5.59L12,10.17L16.59,5.59M16.59,11.59L18,13L12,19L6,13L7.41,11.59L12,16.17L16.59,11.59Z" />
+                </svg>
             </button>
         </div>
     </div>

@@ -26,7 +26,7 @@ export class DataService {
                         anwesenheiten: []}
                     ]};*/
   data: Department[] = [];
-  attendanceTypes: string[] = ['K', 'Anw', 'DZ', 'AE', 'P', 'DR', 'ADR', '---', 'A'];
+  attendanceTypes: string[] = ['K', 'Anw', 'DZ', 'AE', 'P', 'DR', 'ADR', '---', 'A', 'WWWW', 'MMMM', 'ZZZZ'];
   ranksRekrut: {long: string, short: string}[] = [{long: "Rekrut", short: "Rekr"}];
   ranksChargen: {long: string, short: string}[] = [{long: "Gefreiter", short: "Gfr"}, {long: "Korporal", short: "Kpl"}, {long: "Zugsführer", short: "Zgf"}];
   ranksUO: {long: string, short: string}[] = [{long: "Wachtmeister", short: "Wm"}, {long: "Oberwachtmeister", short: "OWm"}, {long: "Stabswachtmeister", short: "StWm"}, {long: "Oberstabswachtmeister", short: "OStWm"}, {long: "Offiziersstellvertreter", short: "OStv"}, {long: "Vizeleutnant", short: "Vzlt"}];

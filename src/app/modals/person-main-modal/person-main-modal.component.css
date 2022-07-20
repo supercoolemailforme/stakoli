@@ -193,3 +193,12 @@ h3 {
     flex-grow: 0;
     text-align: right;
 }
+
+.changeDepartmentDiv {
+    margin-bottom: 40px;
+}
+
+.changeDepartmentBtn {
+    max-width: 200px;
+    display: block;
+}

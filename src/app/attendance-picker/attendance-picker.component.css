@@ -1,5 +1,19 @@
 .pickerBasisDiv {
     position: relative;
+    height: 100%;
+}
+
+.overBtnDiv {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    display: none;
+    top: -10px;
+    left: -10px;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1;
 }
 
 .pickerBasisDiv > button {
@@ -10,22 +24,61 @@
     padding: 0px;
     width: 100%;
     height: 100%;
+    font-size: 19px;
+}
+
+.pickerBasisDiv > button.grayedOut {
+    background-color: #ccc;
+    opacity: 0.6;
+}
+
+.pickerBasisDiv > button > span {
+    overflow: hidden;
+    display: block;
 }
 
 .attendancePickerWindow {
     background-color: #111111bb;
     position: absolute;
-    padding-top: calc(100% + 5px);
-    top: 0px;
+    padding: 15px;
+    top: 100%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
-    min-width: 100%;
+    display: none;
+    border-radius: 3px;
+    width: 150px;
+    height: 140px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 2px 2px 2px #999;
+}
+
+.attendanceSite {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 10px 0px;
+    width: 100%;
+}
+
+.attendancePickerWindow .actionBtn {
+    box-shadow: 2px 2px 2px #444;
+    padding: 4px 6px;
+    font-size: 17px;
+}
+
+.pickerBasisDiv > button:active + .overBtnDiv, .overBtnDiv:hover {
+    display: block;
+}
+
+.overBtnDiv:hover:active {
     display: none;
 }
 
-.attendancePickerWindow.open, .attendancePickerWindow:hover {
-    display: block;
+.pickerBasisDiv > button:active + .attendancePickerWindow, .overBtnDiv:hover + .attendancePickerWindow, .attendancePickerWindow:hover {
+    display: flex;
 }
 
 .attendancePickerWindow.close {
@@ -42,4 +95,33 @@
 
 .attendancePickerWindow span {
     color: white;
+}
+
+.changeSiteBtn {
+    width: 25px;
+    height: 25px;
+    padding: 0px;
+    margin: 0px;
+    background-color: transparent;
+    border: 0px;
+    box-shadow: none;
+    border-radius: 3px;
+    color: white;
+}
+
+.changeSiteBtn:hover {
+    background-color: #777;
+}
+
+.changeSiteBtnDiv {
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.siteNumb {
+    display: block;
+    position: absolute;
+    bottom: 15px;
+    right: 30px;
+    user-select: none;
 }
